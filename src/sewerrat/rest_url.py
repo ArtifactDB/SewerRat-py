@@ -1,7 +1,10 @@
 from typing import Optional
+import os
 
 
 current_url = "http://sc1lvgnplop01.sc1.roche.com:8086"
+if "SEWERRAT_REST_URL" in os.environ:
+    current_url = os.environ["SEWERRAT_REST_URL"]
 
 
 def rest_url(url: Optional[str] = None) -> str:

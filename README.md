@@ -10,9 +10,10 @@
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Twitter)](https://twitter.com/SewerRat)
 -->
 
-[![Project generated with PyScaffold](https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold)](https://pyscaffold.org/)
-
 # Python interface to the SewerRat API
+
+![Unit tests](https://github.com/ArtifactDB/SewerRat-py/actions/workflows/run-tests.yaml/badge.svg)
+![Documentation](https://github.com/ArtifactDB/SewerRat-py/actions/workflows/build-docs.yaml/badge.svg)
 
 Pretty much as it says on the tin: provides a Python client for the [API of the same name](https://github.com/ArtifactDB/SewerRat).
 It is assumed that the users of the **sewerrat** client and the SewerRat API itself are accessing the same shared filesystem;
@@ -66,3 +67,6 @@ sr.query(url, path="diet/") # path has 'diet/' in it
 import time
 sr.query(url, after=time.time() - 3600) # created less than 1 hour ago
 ```
+
+Check out the [API documentation](https://artifactdb.github.io/SewerRat-py/) for more details on each function.
+For the concepts underlying the SewerRat itself, check out the [repository](https://github.com/ArtifactDB/SewerRat) for a detailed explanation.

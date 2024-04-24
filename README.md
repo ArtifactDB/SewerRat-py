@@ -4,7 +4,6 @@
 [![Built Status](https://api.cirrus-ci.com/github/<USER>/SewerRat.svg?branch=main)](https://cirrus-ci.com/github/<USER>/SewerRat)
 [![ReadTheDocs](https://readthedocs.org/projects/SewerRat/badge/?version=latest)](https://SewerRat.readthedocs.io/en/stable/)
 [![Coveralls](https://img.shields.io/coveralls/github/<USER>/SewerRat/main.svg)](https://coveralls.io/r/<USER>/SewerRat)
-[![PyPI-Server](https://img.shields.io/pypi/v/SewerRat.svg)](https://pypi.org/project/SewerRat/)
 [![Conda-Forge](https://img.shields.io/conda/vn/conda-forge/SewerRat.svg)](https://anaconda.org/conda-forge/SewerRat)
 [![Monthly Downloads](https://pepy.tech/badge/SewerRat/month)](https://pepy.tech/project/SewerRat)
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Twitter)](https://twitter.com/SewerRat)
@@ -14,6 +13,7 @@
 
 ![Unit tests](https://github.com/ArtifactDB/SewerRat-py/actions/workflows/run-tests.yaml/badge.svg)
 ![Documentation](https://github.com/ArtifactDB/SewerRat-py/actions/workflows/build-docs.yaml/badge.svg)
+[![PyPI-Server](https://img.shields.io/pypi/v/SewerRat.svg)](https://pypi.org/project/SewerRat/)
 
 Pretty much as it says on the tin: provides a Python client for the [API of the same name](https://github.com/ArtifactDB/SewerRat).
 It is assumed that the users of the **sewerrat** client and the SewerRat API itself are accessing the same shared filesystem;

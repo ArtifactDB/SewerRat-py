@@ -1,14 +1,18 @@
-from typing import Optional, List
+from typing import Optional, List, Dict
 import requests
 
-from .rest_url import rest_url
+from . import _utils as ut
 
 
-def query(text: Optional[str] = None, user: Optional[str] = None, path: Optional[str] = None, after: Optional[int] = None, before: Optional[int] = None, number: int = 100, url: Optional[str] = None) -> List:
+def query(url, text: Optional[str] = None, user: Optional[str] = None, path: Optional[str] = None, after: Optional[int] = None, before: Optional[int] = None, number: int = 100) -> List[Dict]:
     """
-    Query the metadata in the SewerRat backend based on free text, the owner, creation time, etc.
+    Query the metadata in the SewerRat backend based on free text, the owner,
+    creation time, etc. This function does not require filesystem access.
 
     Args:
+        url:
+            String containing the URL to the SewerRat REST API.
+
         text:
             String containing a free-text query, following the syntax described
             `here <https://github.com/ArtifactDB/SewerRat#Using-a-human-readable-text-query-syntax>`_.
@@ -34,12 +38,10 @@ def query(text: Optional[str] = None, user: Optional[str] = None, path: Optional
 
         number:
             Integer specifying the maximum number of results to return.
-
-        url:
-            String containing the URL to the SewerRat REST API.
     
     Returns:
-        List of lists where each inner list corresponds to a metadata file and contains:
+        List of dictionaries where each inner dictionary corresponds to a
+        metadata file and contains:
 
         - ``path``, a string containing the path to the file.
         - ``user``, the identity of the file owner.
@@ -72,15 +74,13 @@ def query(text: Optional[str] = None, user: Optional[str] = None, path: Optional
 
     stub = "/query?translate=true&limit=" + str(number)
     collected = []
-    if url is None:
-        url = rest_url()
 
     while len(collected) < number:
         res = requests.post(url + stub + "&limit=" + str(number - len(collected)), json=query)
-        payload = res.json()
-        if res.status_code >= 400:
-            raise ValueError(payload["reason"])
+        if res.status_code >= 300:
+            raise ut.format_error(res)
 
+        payload = res.json()
         collected += payload["results"]
         if "next" not in payload:
             break

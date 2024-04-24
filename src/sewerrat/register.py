@@ -4,29 +4,31 @@ import os
 import warnings
 import time
 
-from .rest_url import rest_url
+from . import _utils as ut
 
 
-def register(path: str, names: List[str] = [ "_metadata.json" ], url: Optional[str] = None, wait: int = 1):
+def register(path: str, names: List[str], url: str, wait: int = 1):
     """
-    Register a directory into the SewerRat search index.
+    Register a directory into the SewerRat search index. It is assumed that
+    that the directory is world-readable and that the caller has write access.
+    If a metadata file cannot be indexed (e.g., due to incorrect formatting,
+    insufficient permissions), a warning will be printed but the function will
+    not throw an error.
 
     Args:
         path: 
             Path to the directory to be registered.
 
         names: 
-            Array of strings containing the base names of metadata files inside ``path``.
+            List of strings containing the base names of metadata files inside
+            ``path`` to be indexed.
 
         url:
-            URL to the SewerRat REST API. This defaults to the current setting of :py:func:`~rest_url.rest_url`.
+            URL to the SewerRat REST API.
 
         wait:
-            Number of seconds to wait for a file write to synchronise before requesting verification.
-
-    Returns:
-        On success, the directory is registered and nothing is returned.
-        A warning is raised if a metadata file cannot be indexed.
+            Number of seconds to wait for a file write to synchronise before
+            requesting verification.
     """
     if len(names) == 0:
         raise ValueError("expected at least one entry in 'names'")
@@ -36,23 +38,23 @@ def register(path: str, names: List[str] = [ "_metadata.json" ], url: Optional[s
         url = rest_url()
 
     res = requests.post(url + "/register/start", json = { "path": path }, allow_redirects=True)
-    body = res.json()
-    if res.status_code >= 400:
-        raise ValueError(body["reason"])
-    code = body["code"]
+    if res.status_code >= 300:
+        raise ut.format_error(res)
 
+    body = res.json()
+    code = body["code"]
     target = os.path.join(path, code)
     with open(target, "w") as handle:
-        pass
+        handle.write("")
 
     # Sleeping for a while so that files can sync on network shares.
     time.sleep(wait)
 
     try:
         res = requests.post(url + "/register/finish", json = { "path": path, "base": names }, allow_redirects=True)
-        body = res.json()
         if res.status_code >= 300:
-            raise ValueError(body["reason"])
+            raise ut.format_error(res)
+        body = res.json()
     finally:
         os.unlink(target)
 

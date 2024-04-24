@@ -18,6 +18,4 @@ finally:
 from .register import register
 from .deregister import deregister
 from .query import query
-from .rest_url import rest_url
 from .start_sewerrat import start_sewerrat, stop_sewerrat
-from .quick_save import quick_save, quick_read

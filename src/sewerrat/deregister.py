@@ -1,39 +1,34 @@
-from typing import List, Optional
 import requests
 import os
-import warnings
 import time
 
-from .rest_url import rest_url
+from . import _utils as ut
 
 
-def deregister(path: str, url: Optional[str] = None, wait: int = 1):
+def deregister(path: str, url: str, wait: float = 1):
     """
-    Deregister a directory from the SewerRat search index.
+    Deregister a directory from the SewerRat search index. It is assumed that
+    this directory is world-readable and that the caller has write access to
+    it; or, the directory does not exist.
 
     Args:
         path: 
             Path to the directory to be registered.
 
         url:
-            URL to the SewerRat REST API. This defaults to the current setting of :py:func:`~rest_url.rest_url`.
+            URL to the SewerRat REST API. 
 
         wait:
-            Number of seconds to wait for a file write to synchronise before requesting verification.
-
-    Returns:
-        On success, the directory is deregistered and nothing is returned.
+            Number of seconds to wait for a file write to synchronise before
+            requesting verification.
     """
     path = os.path.abspath(path)
-    if url is None:
-        url = rest_url()
-
     res = requests.post(url + "/deregister/start", json = { "path": path }, allow_redirects=True)
-    body = res.json()
-    if res.status_code >= 400:
-        raise ValueError(body["reason"])
+    if res.status_code >= 300:
+        raise ut.format_error(res)
 
     # If it succeeded on start, we don't need to do verification.
+    body = res.json()
     if body["status"] == "SUCCESS":
         return
 
@@ -47,9 +42,8 @@ def deregister(path: str, url: Optional[str] = None, wait: int = 1):
 
     try:
         res = requests.post(url + "/deregister/finish", json = { "path": path }, allow_redirects=True)
-        body = res.json()
         if res.status_code >= 300:
-            raise ValueError(body["reason"])
+            raise ut.format_error(res)
     finally:
         os.unlink(target)
 

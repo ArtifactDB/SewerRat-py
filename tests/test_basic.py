@@ -13,33 +13,33 @@ def test_basic():
     with open(os.path.join(mydir, "diet", "metadata.json"), "w") as handle:
         handle.write('{ "meal": "lunch", "ingredients": "water" }')
 
-    sewerrat.start_sewerrat()
+    _, url = sewerrat.start_sewerrat()
 
     try:
-        sewerrat.register(mydir, ["metadata.json"])
+        sewerrat.register(mydir, ["metadata.json"], url=url)
 
-        res = sewerrat.query("aaron")
+        res = sewerrat.query(url, "aaron")
         assert len(res) == 1
 
-        res = sewerrat.query("lun%") 
+        res = sewerrat.query(url, "lun%")
         assert len(res) == 2
 
-        res = sewerrat.query("lun% AND aaron")
+        res = sewerrat.query(url, "lun% AND aaron")
         assert len(res) == 1
 
-        res = sewerrat.query("meal:lun%")
+        res = sewerrat.query(url, "meal:lun%")
         assert len(res) == 1
 
-        res = sewerrat.query(path="diet/") # has 'diet/' in the path
+        res = sewerrat.query(url, path="diet/") # has 'diet/' in the path
         assert len(res) == 1
 
-        res = sewerrat.query(after=time.time() - 60)
+        res = sewerrat.query(url, after=time.time() - 60) 
         assert len(res) == 2
 
         # Successfully deregistered:
-        sewerrat.deregister(mydir)
+        sewerrat.deregister(mydir, url=url)
 
-        res = sewerrat.query("aaron")
+        res = sewerrat.query(url, "aaron")
         assert len(res) == 0
 
     finally:

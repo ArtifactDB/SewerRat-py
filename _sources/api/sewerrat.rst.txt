@@ -1,0 +1,45 @@
+sewerrat package
+================
+
+Submodules
+----------
+
+sewerrat.deregister module
+--------------------------
+
+.. automodule:: sewerrat.deregister
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sewerrat.query module
+---------------------
+
+.. automodule:: sewerrat.query
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sewerrat.register module
+------------------------
+
+.. automodule:: sewerrat.register
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sewerrat.start\_sewerrat module
+-------------------------------
+
+.. automodule:: sewerrat.start_sewerrat
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: sewerrat
+   :members:
+   :undoc-members:
+   :show-inheritance:

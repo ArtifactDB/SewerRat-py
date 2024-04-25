@@ -19,3 +19,4 @@ from .register import register
 from .deregister import deregister
 from .query import query
 from .start_sewerrat import start_sewerrat, stop_sewerrat
+from .list_files import list_files

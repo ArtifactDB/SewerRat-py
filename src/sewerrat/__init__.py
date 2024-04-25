@@ -20,3 +20,6 @@ from .deregister import deregister
 from .query import query
 from .start_sewerrat import start_sewerrat, stop_sewerrat
 from .list_files import list_files
+from .retrieve_directory import retrieve_directory
+from .retrieve_file import retrieve_file
+from .retrieve_metadata import retrieve_metadata

@@ -68,5 +68,14 @@ import time
 sr.query(url, after=time.time() - 3600) # created less than 1 hour ago
 ```
 
+Once we find a file of interest from a registered directory, we can retrieve its metadata, or other files in the same directory, or the entire directory itself:
+
+```python
+sr.retrieve_metadata(mydir + "/metadata.json", url)
+sr.list_files(mydir, url)
+sr.retrieve_file(mydir + "/diet/metadata.json", url)
+sr.retrieve_directory(mydir, url)
+```
+
 Check out the [API documentation](https://artifactdb.github.io/SewerRat-py/) for more details on each function.
 For the concepts underlying the SewerRat itself, check out the [repository](https://github.com/ArtifactDB/SewerRat) for a detailed explanation.

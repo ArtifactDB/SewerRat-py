@@ -12,6 +12,14 @@ sewerrat.deregister module
    :undoc-members:
    :show-inheritance:
 
+sewerrat.list\_files module
+---------------------------
+
+.. automodule:: sewerrat.list_files
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sewerrat.query module
 ---------------------
 
@@ -24,6 +32,30 @@ sewerrat.register module
 ------------------------
 
 .. automodule:: sewerrat.register
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sewerrat.retrieve\_directory module
+-----------------------------------
+
+.. automodule:: sewerrat.retrieve_directory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sewerrat.retrieve\_file module
+------------------------------
+
+.. automodule:: sewerrat.retrieve_file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sewerrat.retrieve\_metadata module
+----------------------------------
+
+.. automodule:: sewerrat.retrieve_metadata
    :members:
    :undoc-members:
    :show-inheritance:

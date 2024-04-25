@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="sewerrat" href="modules.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
-        <title>sewerrat package - SewerRat 0.0.post1.dev1+gf629734 documentation</title>
+        <title>sewerrat package - SewerRat 0.0.post1.dev1+ga0776bf documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+gf629734 documentation</div></a>
+      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+ga0776bf documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+gf629734 documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+ga0776bf documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -224,6 +224,31 @@ requesting verification.</p></li>
 </dd></dl>
 
 </section>
+<section id="module-sewerrat.list_files">
+<span id="sewerrat-list-files-module"></span><h2>sewerrat.list_files module<a class="headerlink" href="#module-sewerrat.list_files" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sewerrat.list_files.list_files">
+<span class="sig-prename descclassname"><span class="pre">sewerrat.list_files.</span></span><span class="sig-name descname"><span class="pre">list_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_remote</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/list_files.html#list_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.list_files.list_files" title="Link to this definition">¶</a></dt>
+<dd><p>List the contents of a registered directory or a subdirectory thereof.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Absolute path of the directory to list.</p></li>
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API. Only used for remote access.</p></li>
+<li><p><strong>force_remote</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to force remote access via the API, even if <code class="docutils literal notranslate"><span class="pre">path</span></code> is
+on the same filesystem as the caller.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of strings containing the relative paths of files in <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-sewerrat.query">
 <span id="sewerrat-query-module"></span><h2>sewerrat.query module<a class="headerlink" href="#module-sewerrat.query" title="Link to this heading">¶</a></h2>
 <dl class="py function">
@@ -289,6 +314,102 @@ not throw an error.</p>
 <li><p><strong>wait</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Number of seconds to wait for a file write to synchronise before
 requesting verification.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sewerrat.retrieve_directory">
+<span id="sewerrat-retrieve-directory-module"></span><h2>sewerrat.retrieve_directory module<a class="headerlink" href="#module-sewerrat.retrieve_directory" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sewerrat.retrieve_directory.retrieve_directory">
+<span class="sig-prename descclassname"><span class="pre">sewerrat.retrieve_directory.</span></span><span class="sig-name descname"><span class="pre">retrieve_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_remote</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concurrent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/retrieve_directory.html#retrieve_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.retrieve_directory.retrieve_directory" title="Link to this definition">¶</a></dt>
+<dd><p>Obtain the path to a registered directory or one of its subdirectories.
+This may create a local copy of the directory’s contents if the caller
+is not on the same filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Relative path to a registered directory or its subdirectories.</p></li>
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the Gobbler REST API. Only used for remote queries.</p></li>
+<li><p><strong>cache</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – Path to a cache directory. If None, an appropriate location is
+automatically chosen. Only used for remote access.</p></li>
+<li><p><strong>force_remote</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to force remote access. This will download all files in the
+<code class="docutils literal notranslate"><span class="pre">path</span></code> via the REST API and cache them locally, even if
+<code class="docutils literal notranslate"><span class="pre">path</span></code> is present on the same filesystem.</p></li>
+<li><p><strong>overwrite</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to overwrite existing files in the cache.</p></li>
+<li><p><strong>concurrent</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Number of concurrent downloads.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path to the subdirectory on the caller’s filesystem.  This is either
+<code class="docutils literal notranslate"><span class="pre">path</span></code> if it is accessible, or a path to a local cache of the
+directory’s contents otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sewerrat.retrieve_file">
+<span id="sewerrat-retrieve-file-module"></span><h2>sewerrat.retrieve_file module<a class="headerlink" href="#module-sewerrat.retrieve_file" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sewerrat.retrieve_file.retrieve_file">
+<span class="sig-prename descclassname"><span class="pre">sewerrat.retrieve_file.</span></span><span class="sig-name descname"><span class="pre">retrieve_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_remote</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/retrieve_file.html#retrieve_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.retrieve_file.retrieve_file" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the path to a single file in a registered directory. This will
+call the REST API if the caller is not on the same filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – Relative path to a registered directory or its subdirectories.</p></li>
+<li><p><strong>url</strong> – URL to the Gobbler REST API. Only used for remote queries.</p></li>
+<li><p><strong>cache</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – Path to a cache directory. If None, an appropriate location is
+automatically chosen. Only used for remote access.</p></li>
+<li><p><strong>force_remote</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to force remote access. This will download <code class="docutils literal notranslate"><span class="pre">path</span></code> via the
+REST API and cache it locally, even if <code class="docutils literal notranslate"><span class="pre">path</span></code> is present on the
+same filesystem.</p></li>
+<li><p><strong>overwrite</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to overwrite existing files in the cache.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path to the subdirectory on the caller’s filesystem. This is either
+<code class="docutils literal notranslate"><span class="pre">path</span></code> if it is accessible, or a path to a local copy otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sewerrat.retrieve_metadata">
+<span id="sewerrat-retrieve-metadata-module"></span><h2>sewerrat.retrieve_metadata module<a class="headerlink" href="#module-sewerrat.retrieve_metadata" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sewerrat.retrieve_metadata.retrieve_metadata">
+<span class="sig-prename descclassname"><span class="pre">sewerrat.retrieve_metadata.</span></span><span class="sig-name descname"><span class="pre">retrieve_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/retrieve_metadata.html#retrieve_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.retrieve_metadata.retrieve_metadata" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a single metadata entry in a registered directory from the
+SewerRat API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Absolute path to a metadata file in a registered directory.</p></li>
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>, the path to the metadata file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>, the identity of the owning user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>, the Unix time at which the file was modified.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code>, the loaded metadata, typically another dictionary
+representing a JSON object.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing</p>
 </dd>
 </dl>
 </dd></dl>
@@ -388,12 +509,28 @@ no test service was running, this function is a no-op.</p>
 <li><a class="reference internal" href="#sewerrat.deregister.deregister"><code class="docutils literal notranslate"><span class="pre">deregister()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-sewerrat.list_files">sewerrat.list_files module</a><ul>
+<li><a class="reference internal" href="#sewerrat.list_files.list_files"><code class="docutils literal notranslate"><span class="pre">list_files()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-sewerrat.query">sewerrat.query module</a><ul>
 <li><a class="reference internal" href="#sewerrat.query.query"><code class="docutils literal notranslate"><span class="pre">query()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-sewerrat.register">sewerrat.register module</a><ul>
 <li><a class="reference internal" href="#sewerrat.register.register"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-sewerrat.retrieve_directory">sewerrat.retrieve_directory module</a><ul>
+<li><a class="reference internal" href="#sewerrat.retrieve_directory.retrieve_directory"><code class="docutils literal notranslate"><span class="pre">retrieve_directory()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-sewerrat.retrieve_file">sewerrat.retrieve_file module</a><ul>
+<li><a class="reference internal" href="#sewerrat.retrieve_file.retrieve_file"><code class="docutils literal notranslate"><span class="pre">retrieve_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-sewerrat.retrieve_metadata">sewerrat.retrieve_metadata module</a><ul>
+<li><a class="reference internal" href="#sewerrat.retrieve_metadata.retrieve_metadata"><code class="docutils literal notranslate"><span class="pre">retrieve_metadata()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-sewerrat.start_sewerrat">sewerrat.start_sewerrat module</a><ul>
@@ -413,7 +550,7 @@ no test service was running, this function is a no-op.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=c97225d4"></script>
+</div><script src="../_static/documentation_options.js?v=a8ed49ea"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

@@ -42,6 +42,12 @@ def test_basic():
         res = sewerrat.query(url, "aaron")
         assert len(res) == 0
 
+        # We can also register a string.
+        sewerrat.register(mydir, "metadata.json", url=url)
+
+        res = sewerrat.query(url, "aaron")
+        assert len(res) == 1
+
     finally:
         # Okay, stop the service:
         sewerrat.stop_sewerrat()

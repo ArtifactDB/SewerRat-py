@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 import requests
 import os
 import warnings
@@ -7,7 +7,7 @@ import time
 from . import _utils as ut
 
 
-def register(path: str, names: List[str], url: str, retry: int = 3, wait: int = 1):
+def register(path: str, names: Union[str, List[str]], url: str, retry: int = 3, wait: int = 1):
     """
     Register a directory into the SewerRat search index. It is assumed that
     that the directory is world-readable and that the caller has write access.
@@ -21,7 +21,8 @@ def register(path: str, names: List[str], url: str, retry: int = 3, wait: int = 
 
         names: 
             List of strings containing the base names of metadata files inside
-            ``path`` to be indexed.
+            ``path`` to be indexed. Alternatively, a single string containing
+            the base name for a single metadata file.
 
         url:
             URL to the SewerRat REST API.
@@ -35,7 +36,9 @@ def register(path: str, names: List[str], url: str, retry: int = 3, wait: int = 
             Number of seconds to wait for a file write to synchronise before
             requesting verification during each retry.
     """
-    if len(names) == 0:
+    if isinstance(names, str):
+        names = [names]
+    elif len(names) == 0:
         raise ValueError("expected at least one entry in 'names'")
 
     path = ut.clean_path(path)

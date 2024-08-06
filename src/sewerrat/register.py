@@ -38,10 +38,7 @@ def register(path: str, names: List[str], url: str, retry: int = 3, wait: int = 
     if len(names) == 0:
         raise ValueError("expected at least one entry in 'names'")
 
-    path = os.path.abspath(path)
-    if url is None:
-        url = rest_url()
-
+    path = ut.clean_path(path)
     res = requests.post(url + "/register/start", json = { "path": path }, allow_redirects=True)
     if res.status_code >= 300:
         raise ut.format_error(res)

@@ -27,7 +27,7 @@ def deregister(path: str, url: str, retry: int = 3, wait: float = 1):
             Number of seconds to wait for a file write to synchronise before
             requesting verification during each retry.
     """
-    path = os.path.abspath(path)
+    path = ut.clean_path(path)
     res = requests.post(url + "/deregister/start", json = { "path": path }, allow_redirects=True)
     if res.status_code >= 300:
         raise ut.format_error(res)

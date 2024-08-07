@@ -8,7 +8,7 @@ test_api_process = None
 test_api_port = None
 
 
-def start_sewerrat(db: Optional[str] = None, port: Optional[int] = None, wait: float = 1, version: str = "0.1.2", overwrite: bool = False) -> Tuple[bool, int]:
+def start_sewerrat(db: Optional[str] = None, port: Optional[int] = None, wait: float = 1, version: str = "1.0.6", overwrite: bool = False) -> Tuple[bool, int]:
     """
     Start a test SewerRat service.
 

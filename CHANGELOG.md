@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.2.1
+
+- Deprecated the retry loop for (de)registration as the backend is now responsible for polling.
+
 ## Version 0.2.0
 
 - Added function to list files in a directory.

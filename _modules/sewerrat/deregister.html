@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat.deregister - SewerRat 0.0.post1.dev1+g73e288d documentation</title>
+        <title>sewerrat.deregister - SewerRat 0.0.post1.dev1+ge3e1b6e documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g73e288d documentation</div></a>
+      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+ge3e1b6e documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g73e288d documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+ge3e1b6e documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -265,13 +265,10 @@
 <span class="sd">            URL to the SewerRat REST API. </span>
 
 <span class="sd">        retry:</span>
-<span class="sd">            Number of times to try to finish the registration. Larger values</span>
-<span class="sd">            may be necessary if ``path`` is in a network share that takes some</span>
-<span class="sd">            time to synchronise.</span>
+<span class="sd">            Deprecated, ignored.</span>
 
 <span class="sd">        wait:</span>
-<span class="sd">            Number of seconds to wait for a file write to synchronise before</span>
-<span class="sd">            requesting verification during each retry.</span>
+<span class="sd">            Deprecated, ignored.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">clean_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/deregister/start&quot;</span><span class="p">,</span> <span class="n">json</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span> <span class="p">},</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -289,18 +286,9 @@
         <span class="k">pass</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retry</span><span class="p">):</span>
-            <span class="c1"># Sleeping for a while so that files can sync on network shares.</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait</span><span class="p">)</span>
-
-            <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/deregister/finish&quot;</span><span class="p">,</span> <span class="n">json</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span> <span class="p">},</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">:</span>
-                <span class="k">break</span>
-
-            <span class="c1"># Only looping if the status code is an Unauth failure and we&#39;re not on the last loop iteration.</span>
-            <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">401</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">retry</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">ut</span><span class="o">.</span><span class="n">format_error</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/deregister/finish&quot;</span><span class="p">,</span> <span class="n">json</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span> <span class="p">},</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ut</span><span class="o">.</span><span class="n">format_error</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
 
@@ -338,7 +326,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=48fc0aa1"></script>
+</div><script src="../../_static/documentation_options.js?v=4d02fcab"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

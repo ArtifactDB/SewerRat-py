@@ -2,6 +2,7 @@ from typing import Optional, Tuple
 import requests
 import os
 import time
+from . import _utils as ut
 
 
 test_api_process = None
@@ -75,10 +76,7 @@ def _acquire_sewerrat_binary(version: str, overwrite: bool):
         import shutil
         os.makedirs(cache, exist_ok=True)
         tmp = exe + ".tmp"
-        with requests.get(url, stream=True) as r:
-            with open(tmp, 'wb') as f:
-                shutil.copyfileobj(r.raw, f)
-
+        ut.download_file(url, tmp)
         os.chmod(tmp, 0o755)
 
         # Using a write-and-rename paradigm to provide some atomicity. Note

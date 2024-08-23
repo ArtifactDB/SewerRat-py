@@ -1,5 +1,7 @@
 import requests
 import os
+import time
+import shutil
 
 
 def format_error(res):
@@ -39,3 +41,29 @@ def clean_path(path: str) -> str:
 
     keep = [""] + keep # add back the root.
     return '/'.join(keep)
+
+
+def parse_remote_last_modified(res) -> time.time:
+    if "last-modified" not in res.headers:
+        warnings.warn("failed to extract the 'last-modified' header")
+        return None
+    try:
+        mod_time = res.headers["last-modified"]
+        return time.mktime(time.strptime(mod_time, "%a, %d %b %Y %H:%M:%S %Z"))
+    except:
+        warnings.warn("failed to parse the 'last-modified' header")
+        return None
+
+
+def download_file(url: str, dest: str):
+    with requests.get(url, stream=True) as r:
+        if r.status_code >= 300:
+            raise format_error(r)
+        with open(dest, "wb") as f:
+            shutil.copyfileobj(r.raw, f)
+
+        # Setting the correct modified time; we use the
+        # current time as the access time for comparison.
+        modtime = parse_remote_last_modified(r)
+        if modtime is not None:
+            os.utime(dest, (time.time(), modtime))

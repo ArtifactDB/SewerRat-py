@@ -1,8 +1,10 @@
 import sewerrat
+from sewerrat.retrieve_directory import _local_root
 import pytest
 import os
 import tempfile
 import json
+import time
 
 
 @pytest.fixture(scope="module")
@@ -30,10 +32,37 @@ def test_retrieve_file(setup):
         meta = json.load(f)
         assert meta["first"] == "Aaron"
 
+    # Caching of remotes works as expected.
     cache = tempfile.mkdtemp()
     p = sewerrat.retrieve_file(mydir + "/metadata.json", url=url, cache=cache, force_remote=True)
     assert p.startswith(cache)
     with open(p, "r") as f:
+        meta = json.load(f)
+        assert meta["first"] == "Aaron"
+
+    # Subsequent requests are no-ops.
+    with open(p, "w") as f:
+        f.write('{ "first": "Erika" }')
+    p2 = sewerrat.retrieve_file(mydir + "/metadata.json", url=url, cache=cache, force_remote=True)
+    assert p == p2 
+    with open(p2, "r") as f:
+        meta = json.load(f)
+        assert meta["first"] == "Erika"
+
+    # Overwritten successfully:
+    p2 = sewerrat.retrieve_file(mydir + "/metadata.json", url=url, cache=cache, force_remote=True, overwrite=True)
+    assert p == p2 
+    with open(p2, "r") as f:
+        meta = json.load(f)
+        assert meta["first"] == "Aaron"
+
+    # We also get an update if the cached file is too old.
+    with open(p, "w") as f:
+        f.write('{ "first": "Erika" }')
+    os.utime(p, (time.time(), time.time() - 4000))
+    p2 = sewerrat.retrieve_file(mydir + "/metadata.json", url=url, cache=cache, force_remote=True)
+    assert p == p2 
+    with open(p2, "r") as f:
         meta = json.load(f)
         assert meta["first"] == "Aaron"
 
@@ -76,6 +105,19 @@ def test_retrieve_directory(setup):
 
     # Unless we force an overwrite.
     rdir2 == sewerrat.retrieve_directory(subpath, url=url, cache=cache, force_remote=True, overwrite=True)
+    assert rdir == rdir2
+    with open(os.path.join(rdir2, "metadata.json"), "r") as f:
+        meta = json.load(f)
+        assert meta["meal"] == "lunch"
+
+    # Or the cached file AND the success file are both too old, in which case they get updated.
+    with open(os.path.join(rdir, "metadata.json"), "w") as f:
+        f.write('{ "meal": "dinner" }')
+    os.utime(os.path.join(rdir, "metadata.json"), (time.time(), time.time() - 4000))
+    os.utime(os.path.join(_local_root(cache, url), "SUCCESS" + subpath, "....OK"), (time.time(), time.time() - 4000))
+
+    rdir2 = sewerrat.retrieve_directory(subpath, url=url, cache=cache, force_remote=True)
+    assert rdir == rdir2
     with open(os.path.join(rdir2, "metadata.json"), "r") as f:
         meta = json.load(f)
         assert meta["meal"] == "lunch"

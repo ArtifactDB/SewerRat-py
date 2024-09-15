@@ -23,3 +23,4 @@ from .list_files import list_files
 from .retrieve_directory import retrieve_directory
 from .retrieve_file import retrieve_file
 from .retrieve_metadata import retrieve_metadata
+from .list_registered_directories import list_registered_directories

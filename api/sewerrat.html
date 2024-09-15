@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="sewerrat" href="modules.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat package - SewerRat 0.0.post1.dev1+g0462be7 documentation</title>
+        <title>sewerrat package - SewerRat 0.0.post1.dev1+g0453375 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g0462be7 documentation</div></a>
+      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g0453375 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g0462be7 documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g0453375 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -294,6 +294,31 @@ on the same filesystem as the caller.</p></li>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of strings containing the relative paths of files in <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sewerrat.list_registered_directories">
+<span id="sewerrat-list-registered-directories-module"></span><h2>sewerrat.list_registered_directories module<a class="headerlink" href="#module-sewerrat.list_registered_directories" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sewerrat.list_registered_directories.list_registered_directories">
+<span class="sig-prename descclassname"><span class="pre">sewerrat.list_registered_directories.</span></span><span class="sig-name descname"><span class="pre">list_registered_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/list_registered_directories.html#list_registered_directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.list_registered_directories.list_registered_directories" title="Link to this definition">¶</a></dt>
+<dd><p>List all registered directories in the SewerRat instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API.</p></li>
+<li><p><strong>user</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span>) – Name of a user, used to filter the returned directories based on
+the user who registered them. Alternatively True, to automatically
+use the name of the current user.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of objects where each object corresponds to a registered directory
+and contains the <cite>path</cite> to the directory, the <cite>user</cite> who registered it,
+the Unix epoch <cite>time</cite> of the registration, and the <cite>names</cite> of the
+metadata files to be indexed.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -474,7 +499,7 @@ representing a JSON object.</p></li>
 <span id="sewerrat-start-sewerrat-module"></span><h2>sewerrat.start_sewerrat module<a class="headerlink" href="#module-sewerrat.start_sewerrat" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sewerrat.start_sewerrat.start_sewerrat">
-<span class="sig-prename descclassname"><span class="pre">sewerrat.start_sewerrat.</span></span><span class="sig-name descname"><span class="pre">start_sewerrat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1.0.6'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/start_sewerrat.html#start_sewerrat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.start_sewerrat.start_sewerrat" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sewerrat.start_sewerrat.</span></span><span class="sig-name descname"><span class="pre">start_sewerrat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1.0.9'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/start_sewerrat.html#start_sewerrat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.start_sewerrat.start_sewerrat" title="Link to this definition">¶</a></dt>
 <dd><p>Start a test SewerRat service.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -568,6 +593,10 @@ no test service was running, this function is a no-op.</p>
 <li><a class="reference internal" href="#sewerrat.list_files.list_files"><code class="docutils literal notranslate"><span class="pre">list_files()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-sewerrat.list_registered_directories">sewerrat.list_registered_directories module</a><ul>
+<li><a class="reference internal" href="#sewerrat.list_registered_directories.list_registered_directories"><code class="docutils literal notranslate"><span class="pre">list_registered_directories()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-sewerrat.query">sewerrat.query module</a><ul>
 <li><a class="reference internal" href="#sewerrat.query.query"><code class="docutils literal notranslate"><span class="pre">query()</span></code></a></li>
 </ul>
@@ -605,7 +634,7 @@ no test service was running, this function is a no-op.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=adfa5a1f"></script>
+</div><script src="../_static/documentation_options.js?v=843ef63a"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

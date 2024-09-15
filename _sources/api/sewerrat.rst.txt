@@ -20,6 +20,14 @@ sewerrat.list\_files module
    :undoc-members:
    :show-inheritance:
 
+sewerrat.list\_registered\_directories module
+---------------------------------------------
+
+.. automodule:: sewerrat.list_registered_directories
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sewerrat.query module
 ---------------------
 

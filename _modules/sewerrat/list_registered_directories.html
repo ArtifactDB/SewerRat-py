@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat.list_registered_directories - SewerRat 0.0.post1.dev1+g0453375 documentation</title>
+        <title>sewerrat.list_registered_directories - SewerRat 0.0.post1.dev1+g44e5d62 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g0453375 documentation</div></a>
+      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g44e5d62 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g0453375 documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g44e5d62 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -242,13 +242,14 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for sewerrat.list_registered_directories</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
 <span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
 
 
 <div class="viewcode-block" id="list_registered_directories">
 <a class="viewcode-back" href="../../api/sewerrat.html#sewerrat.list_registered_directories.list_registered_directories">[docs]</a>
-<span class="k">def</span> <span class="nf">list_registered_directories</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">list_registered_directories</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">contains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List all registered directories in the SewerRat instance.</span>
 
@@ -257,9 +258,18 @@
 <span class="sd">            URL to the SewerRat REST API.</span>
 
 <span class="sd">        user:</span>
-<span class="sd">            Name of a user, used to filter the returned directories based on</span>
-<span class="sd">            the user who registered them. Alternatively True, to automatically</span>
-<span class="sd">            use the name of the current user.</span>
+<span class="sd">            Name of a user. If not None, this is used to filter the returned</span>
+<span class="sd">            directories based on the user who registered them. Alternatively</span>
+<span class="sd">            True, to automatically use the name of the current user.</span>
+
+<span class="sd">        contains:</span>
+<span class="sd">            String containing an absolute path. If not None, results are</span>
+<span class="sd">            filtered to directories that contain this path.</span>
+
+<span class="sd">        prefix:</span>
+<span class="sd">            String containing an absolute path or a prefix thereof. If not</span>
+<span class="sd">            None, results are filtered to directories starting with this</span>
+<span class="sd">            string.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        List of objects where each object corresponds to a registered directory</span>
@@ -267,13 +277,20 @@
 <span class="sd">        the Unix epoch `time` of the registration, and the `names` of the</span>
 <span class="sd">        metadata files to be indexed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">user</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">getpass</span>
-        <span class="n">user</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">user</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">user</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">getpass</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;user=&quot;</span> <span class="o">+</span> <span class="n">user</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">contains</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;contains_path=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">contains</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;path_prefix=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">prefix</span><span class="p">))</span>
 
     <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;/registered&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">user</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;?user=&quot;</span> <span class="o">+</span> <span class="n">user</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 
     <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
@@ -312,7 +329,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=843ef63a"></script>
+</div><script src="../../_static/documentation_options.js?v=ddf3a893"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

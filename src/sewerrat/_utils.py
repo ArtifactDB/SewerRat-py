@@ -49,7 +49,7 @@ def parse_remote_last_modified(res) -> time.time:
         return None
     try:
         mod_time = res.headers["last-modified"]
-        return time.mktime(time.strptime(mod_time, "%a, %d %b %Y %H:%M:%S %Z"))
+        return time.mktime(time.strptime(mod_time, "%a, %d %b %Y %H:%M:%S GMT")) - time.mktime(time.gmtime(0))
     except:
         warnings.warn("failed to parse the 'last-modified' header")
         return None

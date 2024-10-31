@@ -128,3 +128,42 @@ def test_retrieve_directory(setup):
     with open(os.path.join(rdir2, "diet", "metadata.json"), "r") as f:
         meta = json.load(f)
         assert meta["meal"] == "lunch"
+
+
+def test_retrieve_directory_with_updates():
+    mydir2 = tempfile.mkdtemp()
+    with open(os.path.join(mydir2, "metadata.json"), "w") as handle:
+        handle.write('{ "first": "Kanon", "last": "Shibuya" }')
+
+    os.mkdir(os.path.join(mydir2, "2"))
+    with open(os.path.join(mydir2, "2", "metadata.json"), "w") as handle:
+        handle.write('{ "first": "Kinako", "last": "Sakurakouji" }')
+
+    os.mkdir(os.path.join(mydir2, "3"))
+    with open(os.path.join(mydir2, "3", "metadata.json"), "w") as handle:
+        handle.write('{ "first": "Margarete", "last": "Wien" }')
+
+    _, url = sewerrat.start_sewerrat()
+    sewerrat.register(mydir2, ["metadata.json"], url=url)
+
+    cache = tempfile.mkdtemp()
+    dir = sewerrat.retrieve_directory(mydir2, url=url, cache=cache, force_remote=True)
+    with open(os.path.join(dir, "2", "metadata.json"), "r") as f:
+        meta = json.load(f)
+        assert meta["first"] == "Kinako"
+    assert os.path.exists(os.path.join(dir, "3", "metadata.json"))
+
+    # Checking if it responds correctly to remote updates.
+    time.sleep(1.5)
+    import shutil
+    shutil.rmtree(os.path.join(mydir2, "3"))
+    with open(os.path.join(mydir2, "2", "metadata.json"), "w") as handle:
+        handle.write('{ "first": "Mei", "last": "Yoneme" }')
+    time.sleep(1.5)
+
+    dir2 = sewerrat.retrieve_directory(mydir2, url=url, cache=cache, force_remote=True, update_delay=0)
+    assert dir == dir2
+    with open(os.path.join(dir, "2", "metadata.json"), "r") as f:
+        meta = json.load(f)
+        assert meta["first"] == "Mei"
+    assert not os.path.exists(os.path.join(dir, "3", "metadata.json"))

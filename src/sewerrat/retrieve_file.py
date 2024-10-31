@@ -3,7 +3,7 @@ import os
 from .retrieve_directory import _local_root, _acquire_file_raw
 
 
-def retrieve_file(path, url, cache: Optional[str] = None, force_remote: bool = False, overwrite: bool = False, update_delay: int = 3600) -> str:
+def retrieve_file(path, url, cache: Optional[str] = None, force_remote: bool = False, overwrite: bool = False) -> str:
     """
     Retrieve the path to a single file in a registered directory. This will
     call the REST API if the caller is not on the same filesystem. 
@@ -27,10 +27,6 @@ def retrieve_file(path, url, cache: Optional[str] = None, force_remote: bool = F
         overwrite:
             Whether to overwrite existing files in the cache.
 
-        update_delay: 
-            Maximum age of a cached file, in seconds. Older files will be
-            automatically checked for updates.
-
     Returns:
         Path to the subdirectory on the caller's filesystem. This is either
         ``path`` if it is accessible, or a path to a local copy otherwise.
@@ -39,4 +35,4 @@ def retrieve_file(path, url, cache: Optional[str] = None, force_remote: bool = F
         return path
     else:
         cache = _local_root(cache, url)
-        return _acquire_file_raw(cache, path, url=url, overwrite=overwrite, update_delay=update_delay)
+        return _acquire_file_raw(cache, path, url=url, overwrite=overwrite) 

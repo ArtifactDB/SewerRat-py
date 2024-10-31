@@ -18,18 +18,16 @@ def _full_file_url(url: str, path: str) -> str:
     return url + "/retrieve/file?path=" + urllib.parse.quote_plus(path)
 
 
-def _acquire_file_raw(cache: str, path: str, url: str, overwrite: bool, update_delay: int) -> str:
+def _acquire_file_raw(cache: str, path: str, url: str, overwrite: bool) -> str:
     target = os.path.join(cache, "LOCAL" + path) # os.path.join behaves poorly when 'path' is an absolute path.
 
     if not overwrite:
         if not os.path.exists(target):
             overwrite = True
         else:
-            last_mod = os.path.getmtime(target)
-            if last_mod + update_delay < time.time(): # only check older files for updates, to avoid excessive queries.
-                with requests.head(_full_file_url(url, path)) as r:
-                    if r.status_code >= 300:
-                        raise format_error(r)
+            with requests.head(_full_file_url(url, path)) as r:
+                if r.status_code < 300:
+                    last_mod = os.path.getmtime(target)
                     modtime = ut.parse_remote_last_modified(r)
                     if modtime is not None and modtime > last_mod:
                         overwrite = True
@@ -50,8 +48,8 @@ def _acquire_file_raw(cache: str, path: str, url: str, overwrite: bool, update_d
     return target
 
 
-def _acquire_file(cache: str, path: str, name: str, url: str, overwrite: bool, update_delay: int) -> str:
-    return _acquire_file_raw(cache, path + "/" + name, url, overwrite, update_delay)
+def _acquire_file(cache: str, path: str, name: str, url: str, overwrite: bool) -> str:
+    return _acquire_file_raw(cache, path + "/" + name, url, overwrite)
 
 
 def retrieve_directory(path: str, url: str, cache: Optional[str] = None, force_remote: bool = False, overwrite: bool = False, concurrent: int = 1, update_delay: int = 3600) -> str:
@@ -83,8 +81,8 @@ def retrieve_directory(path: str, url: str, cache: Optional[str] = None, force_r
             Number of concurrent downloads.
 
         update_delay: 
-            Maximum age of a cached file, in seconds. Older files will be
-            automatically checked for updates.
+            Delay interval before checking for updates in a cached directory,
+            seconds. Only used for remote access.
 
     Returns:
         Path to the subdirectory on the caller's filesystem.  This is either
@@ -109,14 +107,22 @@ def retrieve_directory(path: str, url: str, cache: Optional[str] = None, force_r
         raise ut.format_error(res)
     listing = res.json()
 
+    # Delete all files that aren't in the listing.
+    ok_files = set(listing)
+    for root, dirs, filenames in os.walk(final):
+        for f in filenames:
+            full = os.path.join(root, f)
+            if os.path.relpath(full, final) not in ok_files:
+                os.remove(full)
+
     if concurrent == 1:
         for y in listing:
-            _acquire_file(cache, name=y, path=path, url=url, overwrite=overwrite, update_delay=update_delay)
+            _acquire_file(cache, name=y, path=path, url=url, overwrite=overwrite)
     else:
         import multiprocessing
         import functools
         with multiprocessing.Pool(concurrent) as p:
-            p.map(functools.partial(_acquire_file, cache, path, url=url, overwrite=overwrite, update_delay=update_delay), listing)
+            p.map(functools.partial(_acquire_file, cache, path, url=url, overwrite=overwrite), listing)
 
     # We use a directory-level OK file to avoid having to scan through all 
     # the directory contents to indicate that it's complete.

@@ -53,9 +53,9 @@ This does not require filesystem access and can be done remotely.
 
 ```python
 sr.query(url, "foo")
-sr.query(url, "bar%") # partial match to 'bar...'
-sr.query(url, "bar% AND foo") # boolean operations
-sr.query(url, "fish:bar%") # match in the 'fish' field
+sr.query(url, "bar*") # partial match to 'bar...'
+sr.query(url, "bar* AND foo") # boolean operations
+sr.query(url, "fish:bar*") # match in the 'fish' field
 ```
 
 We can also search on the user, path components, and time of creation:

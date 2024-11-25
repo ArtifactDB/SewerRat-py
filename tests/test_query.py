@@ -11,13 +11,13 @@ def test_query_basic(basic_config):
     res = sewerrat.query(url, "aaron")
     assert len(res) == 1
 
-    res = sewerrat.query(url, "lun%")
+    res = sewerrat.query(url, "lun*")
     assert len(res) == 2
 
-    res = sewerrat.query(url, "lun% AND aaron")
+    res = sewerrat.query(url, "lun* AND aaron")
     assert len(res) == 1
 
-    res = sewerrat.query(url, "meal:lun%")
+    res = sewerrat.query(url, "meal:lun*")
     assert len(res) == 1
 
     res = sewerrat.query(url, path="diet/") # has 'diet/' in the path

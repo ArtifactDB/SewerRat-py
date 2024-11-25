@@ -5,17 +5,30 @@ import time
 import pytest
 
 
-def test_query_truncation(capfd):
-    mydir = tempfile.mkdtemp()
-    with open(os.path.join(mydir, "metadata.json"), "w") as handle:
-        handle.write('{ "first": "Aaron", "last": "Lun" }')
+def test_query_basic(basic_config):
+    url, mydir = basic_config
 
-    os.mkdir(os.path.join(mydir, "diet"))
-    with open(os.path.join(mydir, "diet", "metadata.json"), "w") as handle:
-        handle.write('{ "meal": "lunch", "ingredients": "water" }')
+    res = sewerrat.query(url, "aaron")
+    assert len(res) == 1
 
-    _, url = sewerrat.start_sewerrat()
-    sewerrat.register(mydir, ["metadata.json"], url=url)
+    res = sewerrat.query(url, "lun%")
+    assert len(res) == 2
+
+    res = sewerrat.query(url, "lun% AND aaron")
+    assert len(res) == 1
+
+    res = sewerrat.query(url, "meal:lun%")
+    assert len(res) == 1
+
+    res = sewerrat.query(url, path="diet/") # has 'diet/' in the path
+    assert len(res) == 1
+
+    res = sewerrat.query(url, after=time.time() - 60) 
+    assert len(res) == 2
+
+
+def test_query_truncation(basic_config, capfd):
+    url, mydir = basic_config
 
     res = sewerrat.query(url, "lun", number=0)
     out, err = capfd.readouterr()

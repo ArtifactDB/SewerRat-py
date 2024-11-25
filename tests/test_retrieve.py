@@ -1,31 +1,13 @@
 import sewerrat
 from sewerrat.retrieve_directory import _local_root
-import pytest
 import os
 import tempfile
 import json
 import time
 
 
-@pytest.fixture(scope="module")
-def setup():
-    _, url = sewerrat.start_sewerrat()
-
-    mydir = tempfile.mkdtemp()
-    with open(os.path.join(mydir, "metadata.json"), "w") as handle:
-        handle.write('{ "first": "Aaron", "last": "Lun" }')
-
-    os.mkdir(os.path.join(mydir, "diet"))
-    with open(os.path.join(mydir, "diet", "metadata.json"), "w") as handle:
-        handle.write('{ "meal": "lunch", "ingredients": "water" }')
-
-    sewerrat.register(mydir, ["metadata.json"], url=url)
-    return mydir
-
-
-def test_retrieve_file(setup):
-    mydir = setup
-    _, url = sewerrat.start_sewerrat()
+def test_retrieve_file(basic_config):
+    url, mydir = basic_config
 
     p = sewerrat.retrieve_file(mydir + "/metadata.json", url=url)
     with open(p, "r") as f:
@@ -67,9 +49,8 @@ def test_retrieve_file(setup):
         assert meta["first"] == "Aaron"
 
 
-def test_retrieve_metadata(setup):
-    mydir = setup
-    _, url = sewerrat.start_sewerrat()
+def test_retrieve_metadata(basic_config):
+    url, mydir = basic_config
 
     fpath = mydir + "/diet/metadata.json"
     meta = sewerrat.retrieve_metadata(fpath, url=url)
@@ -77,9 +58,8 @@ def test_retrieve_metadata(setup):
     assert meta["metadata"]["meal"] == "lunch"
 
 
-def test_retrieve_directory(setup):
-    mydir = setup
-    _, url = sewerrat.start_sewerrat()
+def test_retrieve_directory(basic_config):
+    url, mydir = basic_config
 
     dir = sewerrat.retrieve_directory(mydir, url=url)
     with open(os.path.join(dir, "metadata.json"), "r") as f:

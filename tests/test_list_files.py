@@ -4,27 +4,14 @@ import tempfile
 import time
 
 
-def test_list_files():
-    mydir = tempfile.mkdtemp()
-    with open(os.path.join(mydir, "metadata.json"), "w") as handle:
-        handle.write('{ "first": "Aaron", "last": "Lun" }')
+def test_list_files(basic_config):
+    url, mydir = basic_config
 
-    os.mkdir(os.path.join(mydir, "diet"))
-    with open(os.path.join(mydir, "diet", "metadata.json"), "w") as handle:
-        handle.write('{ "meal": "lunch", "ingredients": "water" }')
+    out = sewerrat.list_files(mydir, url=url)
+    assert sorted(out) == [ "diet/metadata.json", "metadata.json" ]
 
-    _, url = sewerrat.start_sewerrat()
+    out = sewerrat.list_files(mydir + "/diet", url=url)
+    assert sorted(out) == [ "metadata.json" ]
 
-    sewerrat.register(mydir, ["metadata.json"], url=url)
-    try:
-        out = sewerrat.list_files(mydir, url=url)
-        assert sorted(out) == [ "diet/metadata.json", "metadata.json" ]
-
-        out = sewerrat.list_files(mydir + "/diet", url=url)
-        assert sorted(out) == [ "metadata.json" ]
-
-        out = sewerrat.list_files(mydir, url=url, force_remote=True)
-        assert sorted(out) == [ "diet/metadata.json", "metadata.json" ]
-
-    finally:
-        sewerrat.deregister(mydir, url=url)
+    out = sewerrat.list_files(mydir, url=url, force_remote=True)
+    assert sorted(out) == [ "diet/metadata.json", "metadata.json" ]

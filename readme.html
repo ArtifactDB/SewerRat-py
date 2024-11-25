@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="SewerRat" href="index.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Python interface to the SewerRat API - SewerRat 0.0.post1.dev1+g1317074 documentation</title>
+        <title>Python interface to the SewerRat API - SewerRat 0.0.post1.dev1+gaab244f documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">SewerRat 0.0.post1.dev1+g1317074 documentation</div></a>
+      <a href="index.html"><div class="brand">SewerRat 0.0.post1.dev1+gaab244f documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g1317074 documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+gaab244f documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -293,9 +293,9 @@ Similarly, we can deregister this directory with <code class="docutils literal n
 <p>To search the index, we use the <code class="docutils literal notranslate"><span class="pre">query()</span></code> function to perform free-text searches.
 This does not require filesystem access and can be done remotely.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sr</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">)</span>
-<span class="n">sr</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;bar%&quot;</span><span class="p">)</span> <span class="c1"># partial match to &#39;bar...&#39;</span>
-<span class="n">sr</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;bar% AND foo&quot;</span><span class="p">)</span> <span class="c1"># boolean operations</span>
-<span class="n">sr</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;fish:bar%&quot;</span><span class="p">)</span> <span class="c1"># match in the &#39;fish&#39; field</span>
+<span class="n">sr</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;bar*&quot;</span><span class="p">)</span> <span class="c1"># partial match to &#39;bar...&#39;</span>
+<span class="n">sr</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;bar* AND foo&quot;</span><span class="p">)</span> <span class="c1"># boolean operations</span>
+<span class="n">sr</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;fish:bar*&quot;</span><span class="p">)</span> <span class="c1"># match in the &#39;fish&#39; field</span>
 </pre></div>
 </div>
 <p>We can also search on the user, path components, and time of creation:</p>
@@ -366,7 +366,7 @@ For the concepts underlying the SewerRat itself, check out the <a class="referen
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=c06976b0"></script>
+</div><script src="_static/documentation_options.js?v=b9a0f574"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

@@ -10,6 +10,9 @@ def test_list_files(basic_config):
     out = sewerrat.list_files(mydir, url=url)
     assert sorted(out) == [ "diet/metadata.json", "metadata.json" ]
 
+    out = sewerrat.list_files(mydir, url=url, recursive=False)
+    assert sorted(out) == [ "diet/", "metadata.json" ]
+
     out = sewerrat.list_files(mydir + "/diet", url=url)
     assert sorted(out) == [ "metadata.json" ]
 

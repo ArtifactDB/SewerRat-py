@@ -4,7 +4,7 @@ import requests
 from . import _utils as ut
 
 
-def list_files(path: str, url: str, force_remote: bool = False) -> List[str]:
+def list_files(path: str, url: str, recursive: bool = True, force_remote: bool = False) -> List[str]:
     """
     List the contents of a registered directory or a subdirectory thereof.
 
@@ -14,6 +14,11 @@ def list_files(path: str, url: str, force_remote: bool = False) -> List[str]:
 
         url:
             URL to the SewerRat REST API. Only used for remote access.
+
+        recursive:
+            Whether to list the contents recursively. If False, the contents of
+            subdirectories are not listed, and the names of directories are
+            suffxed with ``/`` in the returned list.
 
         force_remote:
             Whether to force remote access via the API, even if ``path`` is
@@ -31,12 +36,16 @@ def list_files(path: str, url: str, force_remote: bool = False) -> List[str]:
                     listing.append(os.path.join(rel, f))
                 else:
                     listing.append(f)
+            if not recursive:
+                for d in dirs:
+                    listing.append(d + "/")
+                break
 
         return listing
 
     else:
         import urllib
-        res = requests.get(url + "/list?path=" + urllib.parse.quote_plus(path) + "&recursive=true")
+        res = requests.get(url + "/list?path=" + urllib.parse.quote_plus(path) + "&recursive=" + str(recursive).lower())
         if res.status_code >= 300:
             raise ut.format_error(res)
         return res.json()

@@ -5,15 +5,15 @@ import time
 from . import _utils as ut
 
 
-def deregister(path: str, url: str, retry: int = 3, wait: float = 1):
+def deregister(path: str, url: str, retry: int = 3, wait: float = 1, block: bool = True):
     """
-    Deregister a directory from the SewerRat search index. It is assumed that
-    this directory is world-readable and that the caller has write access to
-    it; or, the directory does not exist.
+    Deregister a directory from the SewerRat search index.
 
     Args:
         path: 
-            Path to the directory to be registered.
+            Path to the directory to be deregistered.
+            The directory should either be readable by the SewerRat API and the caller should have write access;
+            or the directory should not exist.
 
         url:
             URL to the SewerRat REST API. 
@@ -23,9 +23,18 @@ def deregister(path: str, url: str, retry: int = 3, wait: float = 1):
 
         wait:
             Deprecated, ignored.
+
+        block:
+            Whether to block on successful deregistration.
+
+    Returns:
+        On success, the directory is deregistered. 
+
+        If ``block = False``, the function returns before confirmation of successful deregistration from the SewerRat API.
+        This can be useful for asynchronous processing of directories with many files.
     """
     path = ut.clean_path(path)
-    res = requests.post(url + "/deregister/start", json = { "path": path }, allow_redirects=True)
+    res = requests.post(url + "/deregister/start", json = { "path": path, "block": block }, allow_redirects=True)
     if res.status_code >= 300:
         raise ut.format_error(res)
 
@@ -40,7 +49,7 @@ def deregister(path: str, url: str, retry: int = 3, wait: float = 1):
         pass
 
     try:
-        res = requests.post(url + "/deregister/finish", json = { "path": path }, allow_redirects=True)
+        res = requests.post(url + "/deregister/finish", json = { "path": path, "block": block }, allow_redirects=True)
         if res.status_code >= 300:
             raise ut.format_error(res)
     finally:

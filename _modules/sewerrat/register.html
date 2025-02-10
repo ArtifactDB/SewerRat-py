@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat.register - SewerRat 0.0.post1.dev1+gaab244f documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+        <title>sewerrat.register - SewerRat 0.0.post1.dev1+ga9c50f1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+gaab244f documentation</div></a>
+      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+ga9c50f1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+gaab244f documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+ga9c50f1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -242,33 +242,29 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for sewerrat.register</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">_utils</span> <span class="k">as</span> <span class="n">ut</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">_utils</span> <span class="k">as</span> <span class="n">ut</span>
 
 
 <div class="viewcode-block" id="register">
 <a class="viewcode-back" href="../../api/sewerrat.html#sewerrat.register.register">[docs]</a>
-<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">retry</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">wait</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">register</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">retry</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">wait</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Register a directory into the SewerRat search index. It is assumed that</span>
-<span class="sd">    that the directory is world-readable and that the caller has write access.</span>
-<span class="sd">    If a metadata file cannot be indexed (e.g., due to incorrect formatting,</span>
-<span class="sd">    insufficient permissions), a warning will be printed but the function will</span>
-<span class="sd">    not throw an error.</span>
+<span class="sd">    Register a directory into the SewerRat search index.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path: </span>
 <span class="sd">            Path to the directory to be registered.</span>
+<span class="sd">            The directory should be readable by the SewerRat API and the caller should have write access.</span>
 
 <span class="sd">        names: </span>
-<span class="sd">            List of strings containing the base names of metadata files inside</span>
-<span class="sd">            ``path`` to be indexed. Alternatively, a single string containing</span>
-<span class="sd">            the base name for a single metadata file.</span>
+<span class="sd">            List of strings containing the base names of metadata files inside ``path`` to be indexed.</span>
+<span class="sd">            Alternatively, a single string containing the base name for a single metadata file.</span>
 
 <span class="sd">        url:</span>
 <span class="sd">            URL to the SewerRat REST API.</span>
@@ -278,6 +274,16 @@
 
 <span class="sd">        wait:</span>
 <span class="sd">            Deprecated, ignored.</span>
+
+<span class="sd">        block:</span>
+<span class="sd">            Whether to block on successful registration.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        On success, the directory is registered. </span>
+<span class="sd">        If a metadata file cannot be indexed (e.g., due to incorrect formatting, insufficient permissions), a warning will be printed but the function will not throw an error.</span>
+
+<span class="sd">        If ``block = False``, the function returns before confirmation of successful registration from the SewerRat API.</span>
+<span class="sd">        This can be useful for asynchronous processing of directories with many files. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">]</span>
@@ -296,15 +302,16 @@
         <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/register/finish&quot;</span><span class="p">,</span> <span class="n">json</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span> <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="n">names</span> <span class="p">},</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/register/finish&quot;</span><span class="p">,</span> <span class="n">json</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span> <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="n">names</span><span class="p">,</span> <span class="s2">&quot;block&quot;</span><span class="p">:</span> <span class="n">block</span> <span class="p">},</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ut</span><span class="o">.</span><span class="n">format_error</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
         <span class="n">body</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">body</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">block</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">body</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
     <span class="k">return</span></div>
 
 </pre></div>
@@ -339,7 +346,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=b9a0f574"></script>
+</div><script src="../../_static/documentation_options.js?v=b247bdab"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

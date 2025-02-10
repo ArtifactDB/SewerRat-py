@@ -6,8 +6,8 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="sewerrat" href="modules.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat package - SewerRat 0.0.post1.dev1+gaab244f documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+        <title>sewerrat package - SewerRat 0.0.post1.dev1+ga9c50f1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+gaab244f documentation</div></a>
+      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+ga9c50f1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+gaab244f documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+ga9c50f1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -257,18 +257,25 @@
 <span id="sewerrat-deregister-module"></span><h2>sewerrat.deregister module<a class="headerlink" href="#module-sewerrat.deregister" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sewerrat.deregister.deregister">
-<span class="sig-prename descclassname"><span class="pre">sewerrat.deregister.</span></span><span class="sig-name descname"><span class="pre">deregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/deregister.html#deregister"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.deregister.deregister" title="Link to this definition">¶</a></dt>
-<dd><p>Deregister a directory from the SewerRat search index. It is assumed that
-this directory is world-readable and that the caller has write access to
-it; or, the directory does not exist.</p>
+<span class="sig-prename descclassname"><span class="pre">sewerrat.deregister.</span></span><span class="sig-name descname"><span class="pre">deregister</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/deregister.html#deregister"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.deregister.deregister" title="Link to this definition">¶</a></dt>
+<dd><p>Deregister a directory from the SewerRat search index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory to be registered.</p></li>
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory to be deregistered.
+The directory should either be readable by the SewerRat API and the caller should have write access;
+or the directory should not exist.</p></li>
 <li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API.</p></li>
 <li><p><strong>retry</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Deprecated, ignored.</p></li>
 <li><p><strong>wait</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></span>) – Deprecated, ignored.</p></li>
+<li><p><strong>block</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to block on successful deregistration.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>On success, the directory is deregistered.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">block</span> <span class="pre">=</span> <span class="pre">False</span></code>, the function returns before confirmation of successful deregistration from the SewerRat API.
+This can be useful for asynchronous processing of directories with many files.</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -386,23 +393,27 @@ metadata file and contains:</p>
 <span id="sewerrat-register-module"></span><h2>sewerrat.register module<a class="headerlink" href="#module-sewerrat.register" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sewerrat.register.register">
-<span class="sig-prename descclassname"><span class="pre">sewerrat.register.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/register.html#register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.register.register" title="Link to this definition">¶</a></dt>
-<dd><p>Register a directory into the SewerRat search index. It is assumed that
-that the directory is world-readable and that the caller has write access.
-If a metadata file cannot be indexed (e.g., due to incorrect formatting,
-insufficient permissions), a warning will be printed but the function will
-not throw an error.</p>
+<span class="sig-prename descclassname"><span class="pre">sewerrat.register.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/register.html#register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.register.register" title="Link to this definition">¶</a></dt>
+<dd><p>Register a directory into the SewerRat search index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory to be registered.</p></li>
-<li><p><strong>names</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – List of strings containing the base names of metadata files inside
-<code class="docutils literal notranslate"><span class="pre">path</span></code> to be indexed. Alternatively, a single string containing
-the base name for a single metadata file.</p></li>
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Path to the directory to be registered.
+The directory should be readable by the SewerRat API and the caller should have write access.</p></li>
+<li><p><strong>names</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span>) – List of strings containing the base names of metadata files inside <code class="docutils literal notranslate"><span class="pre">path</span></code> to be indexed.
+Alternatively, a single string containing the base name for a single metadata file.</p></li>
 <li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API.</p></li>
 <li><p><strong>retry</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Deprecated, ignored.</p></li>
 <li><p><strong>wait</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Deprecated, ignored.</p></li>
+<li><p><strong>block</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to block on successful registration.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>On success, the directory is registered.
+If a metadata file cannot be indexed (e.g., due to incorrect formatting, insufficient permissions), a warning will be printed but the function will not throw an error.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">block</span> <span class="pre">=</span> <span class="pre">False</span></code>, the function returns before confirmation of successful registration from the SewerRat API.
+This can be useful for asynchronous processing of directories with many files.</p>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -510,7 +521,7 @@ representing a JSON object.</p></li>
 <span id="sewerrat-start-sewerrat-module"></span><h2>sewerrat.start_sewerrat module<a class="headerlink" href="#module-sewerrat.start_sewerrat" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sewerrat.start_sewerrat.start_sewerrat">
-<span class="sig-prename descclassname"><span class="pre">sewerrat.start_sewerrat.</span></span><span class="sig-name descname"><span class="pre">start_sewerrat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1.1.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/start_sewerrat.html#start_sewerrat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.start_sewerrat.start_sewerrat" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sewerrat.start_sewerrat.</span></span><span class="sig-name descname"><span class="pre">start_sewerrat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1.1.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/start_sewerrat.html#start_sewerrat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.start_sewerrat.start_sewerrat" title="Link to this definition">¶</a></dt>
 <dd><p>Start a test SewerRat service.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -645,7 +656,7 @@ no test service was running, this function is a no-op.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=b9a0f574"></script>
+</div><script src="../_static/documentation_options.js?v=b247bdab"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

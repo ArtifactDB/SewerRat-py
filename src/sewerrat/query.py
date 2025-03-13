@@ -47,6 +47,7 @@ def query(
 
         number:
             Integer specifying the maximum number of results to return.
+            This can also be ``float("inf")`` to retrieve all available results.
 
         on_truncation:
             String specifying the action to take when the number of search
@@ -93,7 +94,11 @@ def query(
     collected = []
 
     while len(collected) < number:
-        res = requests.post(url + stub + "&limit=" + str(number - len(collected)), json=query)
+        current_url = url + stub
+        if number != float("inf"):
+            current_url += "&limit=" + str(number - len(collected))
+
+        res = requests.post(current_url, json=query)
         if res.status_code >= 300:
             raise ut.format_error(res)
 
@@ -104,7 +109,7 @@ def query(
         stub = payload["next"]
 
     if on_truncation != "none":
-        if len(collected) > original_number:
+        if original_number != float("inf") and len(collected) > original_number:
             msg = "truncated query results to the first " + str(original_number) + " matches"
             if on_truncation == "warning":
                 warnings.warn(msg)

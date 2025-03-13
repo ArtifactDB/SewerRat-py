@@ -26,6 +26,9 @@ def test_query_basic(basic_config):
     res = sewerrat.query(url, after=time.time() - 60) 
     assert len(res) == 2
 
+    res = sewerrat.query(url, "lun*", number=float("inf"))
+    assert len(res) == 2
+
 
 def test_query_truncation(basic_config, capfd):
     url, mydir = basic_config

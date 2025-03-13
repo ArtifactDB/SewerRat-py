@@ -1,5 +1,29 @@
 # Changelog
 
+## Version 0.2.6
+
+- Support `number=float("inf")` to get all results in `query()`.
+
+## Version 0.2.5
+
+- Support non-blocking calls to the SewerRat API in `register()` and `deregister()`.
+
+## Version 0.2.4
+
+- Support more filters in `list_registered_directories()`.
+- Improved synchronization of cache with the remote in `retrieve_file()`, `retrieve_directory()`.
+- Emit diagnostics when the number of query results is truncated in `query()`.
+- Added option for non-recursive listing of directory contents in `list_files()`.
+
+## Version 0.2.3
+
+- Added `list_registered_directories()` to list the registered directories.
+
+## Version 0.2.2
+
+- Check for updated files in the backend when doing remote calls in `retrieve_file()`, `retrieve_directory()`.
+  If detected, a new download into the cache will be performed.
+
 ## Version 0.2.1
 
 - Deprecated the retry loop for (de)registration as the backend is now responsible for polling.

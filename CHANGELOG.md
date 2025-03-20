@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.2.8
+
+- Added `within=` to `list_registered_directories()` to search for directories within a specified path.
+  This is more correct than `prefix=` and should be used in the vast majority of cases.
+
+## Version 0.2.7
+
+- Added `exists=` to `list_registered_directories()` to filter to (non-)existent directories.
+
 ## Version 0.2.6
 
 - Support `number=float("inf")` to get all results in `query()`.

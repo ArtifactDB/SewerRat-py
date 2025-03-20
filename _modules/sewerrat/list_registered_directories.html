@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat.list_registered_directories - SewerRat 0.0.post1.dev1+g5a88a18 documentation</title>
+        <title>sewerrat.list_registered_directories - SewerRat 0.0.post1.dev1+g7cc428f documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g5a88a18 documentation</div></a>
+      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g7cc428f documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g5a88a18 documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g7cc428f documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -253,6 +253,7 @@
     <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">user</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">contains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">within</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">exists</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
@@ -272,10 +273,14 @@
 <span class="sd">            String containing an absolute path. If not None, results are</span>
 <span class="sd">            filtered to directories that contain this path.</span>
 
+<span class="sd">        within:</span>
+<span class="sd">            String containing an absolute path.</span>
+<span class="sd">            If not ``None``, results are filtered to directories equal to or within this path.</span>
+
 <span class="sd">        prefix:</span>
-<span class="sd">            String containing an absolute path or a prefix thereof. If not</span>
-<span class="sd">            None, results are filtered to directories starting with this</span>
-<span class="sd">            string.</span>
+<span class="sd">            String containing an absolute path or a prefix thereof.</span>
+<span class="sd">            If not ``None``, results are filtered to directories starting with this string.</span>
+<span class="sd">            This is soft-deprecated and users should use ``within=`` instead.</span>
 
 <span class="sd">        exists:</span>
 <span class="sd">            Whether to only report directories that exist on the filesystem.</span>
@@ -297,6 +302,8 @@
         <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;contains_path=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">contains</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;path_prefix=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">prefix</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">within</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;within_path=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">within</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">exists</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">exists</span><span class="p">:</span>
             <span class="n">qstr</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span>
@@ -345,7 +352,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=231b10e9"></script>
+</div><script src="../../_static/documentation_options.js?v=9c38217c"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

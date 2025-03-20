@@ -3,7 +3,13 @@ import requests
 import urllib
 
 
-def list_registered_directories(url: str, user: Optional[Union[str, bool]] = None, contains: Optional[str] = None, prefix: Optional[str] = None) -> List[Dict]:
+def list_registered_directories(
+    url: str,
+    user: Optional[Union[str, bool]] = None,
+    contains: Optional[str] = None,
+    prefix: Optional[str] = None,
+    exists: Optional[bool] = None,
+) -> List[Dict]:
     """
     List all registered directories in the SewerRat instance.
 
@@ -25,6 +31,10 @@ def list_registered_directories(url: str, user: Optional[Union[str, bool]] = Non
             None, results are filtered to directories starting with this
             string.
 
+        exists:
+            Whether to only report directories that exist on the filesystem.
+            If ``False``, only non-existent directories are reported, and if ``None``, no filtering is applied based on existence.
+
     Returns:
         List of objects where each object corresponds to a registered directory
         and contains the `path` to the directory, the `user` who registered it,
@@ -41,6 +51,12 @@ def list_registered_directories(url: str, user: Optional[Union[str, bool]] = Non
         query.append("contains_path=" + urllib.parse.quote_plus(contains))
     if not prefix is None:
         query.append("path_prefix=" + urllib.parse.quote_plus(prefix))
+    if exists is not None:
+        if exists:
+            qstr = "true"
+        else:
+            qstr = "false"
+        query.append("exists=" + qstr)
 
     url += "/registered"
     if len(query) > 0:

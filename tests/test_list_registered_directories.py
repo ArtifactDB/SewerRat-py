@@ -41,3 +41,19 @@ def test_list_registered_directories(basic_config):
     # Multiple filters work.
     filtered  = sewerrat.list_registered_directories(url, prefix=os.path.dirname(mydir), user=True, contains=os.path.join(mydir, "metadata.json"))
     assert regged == filtered
+
+    # Existence filter works.
+    tmp = str(tempfile.mkdtemp())
+    sewerrat.register(tmp, names="metadata.json", url=url)
+    try:
+        filtered = sewerrat.list_registered_directories(url, prefix=tmp, exists=True)
+        assert filtered[0]["path"] == tmp
+
+        os.rmdir(tmp)
+        filtered2 = sewerrat.list_registered_directories(url, prefix=tmp, exists=False)
+        assert filtered == filtered2
+
+        filtered = sewerrat.list_registered_directories(url, prefix=tmp, exists=True)
+        assert len(filtered) == 0
+    finally:
+        sewerrat.deregister(tmp, url=url)

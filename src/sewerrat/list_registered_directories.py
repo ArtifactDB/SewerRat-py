@@ -7,6 +7,7 @@ def list_registered_directories(
     url: str,
     user: Optional[Union[str, bool]] = None,
     contains: Optional[str] = None,
+    within: Optional[str] = None,
     prefix: Optional[str] = None,
     exists: Optional[bool] = None,
 ) -> List[Dict]:
@@ -26,10 +27,14 @@ def list_registered_directories(
             String containing an absolute path. If not None, results are
             filtered to directories that contain this path.
 
+        within:
+            String containing an absolute path.
+            If not ``None``, results are filtered to directories equal to or within this path.
+
         prefix:
-            String containing an absolute path or a prefix thereof. If not
-            None, results are filtered to directories starting with this
-            string.
+            String containing an absolute path or a prefix thereof.
+            If not ``None``, results are filtered to directories starting with this string.
+            This is soft-deprecated and users should use ``within=`` instead.
 
         exists:
             Whether to only report directories that exist on the filesystem.
@@ -51,6 +56,8 @@ def list_registered_directories(
         query.append("contains_path=" + urllib.parse.quote_plus(contains))
     if not prefix is None:
         query.append("path_prefix=" + urllib.parse.quote_plus(prefix))
+    if not within is None:
+        query.append("within_path=" + urllib.parse.quote_plus(within))
     if exists is not None:
         if exists:
             qstr = "true"

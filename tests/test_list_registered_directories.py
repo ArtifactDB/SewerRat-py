@@ -32,14 +32,14 @@ def test_list_registered_directories(basic_config):
     assert len(filtered) == 0
 
     # Filter by prefix.
-    filtered = sewerrat.list_registered_directories(url, prefix=os.path.dirname(mydir))
+    filtered = sewerrat.list_registered_directories(url, within=os.path.dirname(mydir))
     assert regged == filtered
 
-    filtered  = sewerrat.list_registered_directories(url, prefix=os.path.dirname(mydir) + "-asdasdad")
+    filtered  = sewerrat.list_registered_directories(url, within=os.path.dirname(mydir) + "-asdasdad")
     assert len(filtered) == 0
 
     # Multiple filters work.
-    filtered  = sewerrat.list_registered_directories(url, prefix=os.path.dirname(mydir), user=True, contains=os.path.join(mydir, "metadata.json"))
+    filtered  = sewerrat.list_registered_directories(url, within=os.path.dirname(mydir), user=True, contains=os.path.join(mydir, "metadata.json"))
     assert regged == filtered
 
     # Existence filter works.

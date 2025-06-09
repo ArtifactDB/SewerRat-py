@@ -9,93 +9,93 @@ sewerrat.deregister module
 
 .. automodule:: sewerrat.deregister
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.list\_fields module
 ----------------------------
 
 .. automodule:: sewerrat.list_fields
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.list\_files module
 ---------------------------
 
 .. automodule:: sewerrat.list_files
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.list\_registered\_directories module
 ---------------------------------------------
 
 .. automodule:: sewerrat.list_registered_directories
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.list\_tokens module
 ----------------------------
 
 .. automodule:: sewerrat.list_tokens
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.query module
 ---------------------
 
 .. automodule:: sewerrat.query
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.register module
 ------------------------
 
 .. automodule:: sewerrat.register
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.retrieve\_directory module
 -----------------------------------
 
 .. automodule:: sewerrat.retrieve_directory
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.retrieve\_file module
 ------------------------------
 
 .. automodule:: sewerrat.retrieve_file
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.retrieve\_metadata module
 ----------------------------------
 
 .. automodule:: sewerrat.retrieve_metadata
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 sewerrat.start\_sewerrat module
 -------------------------------
 
 .. automodule:: sewerrat.start_sewerrat
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: sewerrat
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

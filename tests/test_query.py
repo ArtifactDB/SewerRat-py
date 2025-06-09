@@ -10,6 +10,7 @@ def test_query_basic(basic_config):
 
     res = sewerrat.query(url, "aaron")
     assert len(res) == 1
+    assert "metadata" in res[0]
 
     res = sewerrat.query(url, "lun*")
     assert len(res) == 2
@@ -29,6 +30,10 @@ def test_query_basic(basic_config):
     res = sewerrat.query(url, "lun*", number=float("inf"))
     assert len(res) == 2
 
+    res = sewerrat.query(url, "aaron", metadata=False)
+    assert len(res) == 1
+    assert "metadata" not in res[0]
+
 
 def test_query_truncation(basic_config, capfd):
     url, mydir = basic_config
@@ -44,3 +49,6 @@ def test_query_truncation(basic_config, capfd):
 
     res = sewerrat.query(url, "lun", number=0, on_truncation="none")
     assert len(res) == 0
+
+    res = sewerrat.query(url, "lun", number=float("inf"))
+    assert len(res) > 0

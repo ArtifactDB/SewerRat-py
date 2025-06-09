@@ -1,6 +1,5 @@
 from typing import Optional, List, Dict, Literal
 import requests
-import warnings
 
 from . import _utils as ut
 
@@ -12,8 +11,10 @@ def query(
     path: Optional[str] = None, 
     after: Optional[int] = None, 
     before: Optional[int] = None, 
+    metadata: bool = True,
     number: int = 100, 
-    on_truncation: Literal["message", "warning", "none"] = "message") -> List[Dict]:
+    on_truncation: Literal["message", "warning", "none"] = "message"
+) -> List[Dict]:
     """
     Query the metadata in the SewerRat backend based on free text, the owner,
     creation time, etc. This function does not require filesystem access.
@@ -45,22 +46,25 @@ def query(
             than ``before`` will be retained. If None, no filtering is applied
             to remove new files.
 
+        metadata:
+            Whether to return the metadata of each file.
+            This can be set to ``False`` for better performance if only the path is of interest.
+
         number:
             Integer specifying the maximum number of results to return.
             This can also be ``float("inf")`` to retrieve all available results.
 
         on_truncation:
-            String specifying the action to take when the number of search
-            results is capped by ``number``.
-    
+            String specifying the action to take when the number of search results is capped by ``number``.
+
     Returns:
-        List of dictionaries where each inner dictionary corresponds to a
-        metadata file and contains:
+        List of dictionaries where each dictionary corresponds to a metadata file and contains:
 
         - ``path``, a string containing the path to the file.
         - ``user``, the identity of the file owner.
         - ``time``, the Unix time of most recent file modification.
         - ``metadata``, a list representing the JSON contents of the file.
+          Only reported if ``metadata=True`` in the function call.
     """
     conditions = []
 
@@ -86,13 +90,15 @@ def query(
     else:
         raise ValueError("at least one search filter must be present")
 
+    original_number = number
     if on_truncation != "none":
-        original_number = number
         number += 1
 
     stub = "/query?translate=true"
-    collected = []
+    if not metadata:
+        stub += "&metadata=false"
 
+    collected = []
     while len(collected) < number:
         current_url = url + stub
         if number != float("inf"):
@@ -108,13 +114,4 @@ def query(
             break
         stub = payload["next"]
 
-    if on_truncation != "none":
-        if original_number != float("inf") and len(collected) > original_number:
-            msg = "truncated query results to the first " + str(original_number) + " matches"
-            if on_truncation == "warning":
-                warnings.warn(msg)
-            else:
-                print(msg)
-            collected = collected[:original_number]
-
-    return collected
+    return ut.handle_truncated_pages(on_truncation, original_number, collected)

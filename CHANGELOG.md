@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.3.0
+
+- Added pagination options (`number=`, `on_truncation=`) to `list_registered_directories()`.
+- Added a `metadata=` option to `query()` for improved performance when metadata is not required.
+- Added the `list_fields()` and `list_tokens()` functions to provide the database's known vocabulary.
+
 ## Version 0.2.8
 
 - Added `within=` to `list_registered_directories()` to search for directories within a specified path.

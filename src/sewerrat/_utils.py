@@ -2,6 +2,7 @@ import requests
 import os
 import time
 import shutil
+import warnings
 
 
 def format_error(res):
@@ -67,3 +68,15 @@ def download_file(url: str, dest: str):
         modtime = parse_remote_last_modified(r)
         if modtime is not None:
             os.utime(dest, (time.time(), modtime))
+
+
+def handle_truncated_pages(on_truncation: str, original_number: int, collected: list) -> list:
+    if on_truncation != "none":
+        if original_number != float("inf") and len(collected) > original_number:
+            msg = "truncated results to the first " + str(original_number) + " entries"
+            if on_truncation == "warning":
+                warnings.warn(msg)
+            else:
+                print(msg)
+            collected = collected[:original_number]
+    return collected

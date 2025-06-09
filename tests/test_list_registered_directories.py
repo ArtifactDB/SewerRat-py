@@ -1,7 +1,7 @@
 import sewerrat
 import os
 import tempfile
-import time
+import pytest
 
 
 def test_list_registered_directories(basic_config):
@@ -57,3 +57,22 @@ def test_list_registered_directories(basic_config):
         assert len(filtered) == 0
     finally:
         sewerrat.deregister(tmp, url=url)
+
+
+def test_list_registered_directories_truncation(basic_config, capfd):
+    url, mydir = basic_config
+
+    res = sewerrat.list_registered_directories(url, number=0)
+    out, err = capfd.readouterr()
+    assert "truncated" in out
+    assert len(res) == 0
+
+    with pytest.warns(UserWarning, match="truncated"):
+        res = sewerrat.list_registered_directories(url, number=0, on_truncation="warning")
+    assert len(res) == 0
+
+    res = sewerrat.list_registered_directories(url, number=0, on_truncation="none")
+    assert len(res) == 0
+
+    res = sewerrat.list_registered_directories(url, number=float("inf"))
+    assert len(res) > 0

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat.list_registered_directories - SewerRat 0.0.post1.dev1+g7cc428f documentation</title>
+        <title>sewerrat.list_registered_directories - SewerRat 0.0.post1.dev1+g00cd50e documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g7cc428f documentation</div></a>
+      <a href="../../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g00cd50e documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g7cc428f documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g00cd50e documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -242,9 +242,11 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for sewerrat.list_registered_directories</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Literal</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">urllib</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">_utils</span> <span class="k">as</span> <span class="n">ut</span>
 
 
 <div class="viewcode-block" id="list_registered_directories">
@@ -256,6 +258,8 @@
     <span class="n">within</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">exists</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> 
+    <span class="n">on_truncation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;message&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List all registered directories in the SewerRat instance.</span>
@@ -265,9 +269,9 @@
 <span class="sd">            URL to the SewerRat REST API.</span>
 
 <span class="sd">        user:</span>
-<span class="sd">            Name of a user. If not None, this is used to filter the returned</span>
-<span class="sd">            directories based on the user who registered them. Alternatively</span>
-<span class="sd">            True, to automatically use the name of the current user.</span>
+<span class="sd">            Name of a user.</span>
+<span class="sd">            If not ``None``, this is used to filter the returned directories based on the user who registered them.</span>
+<span class="sd">            Alternatively, this can be set to ``True`` to automatically use the name of the current user.</span>
 
 <span class="sd">        contains:</span>
 <span class="sd">            String containing an absolute path. If not None, results are</span>
@@ -286,11 +290,20 @@
 <span class="sd">            Whether to only report directories that exist on the filesystem.</span>
 <span class="sd">            If ``False``, only non-existent directories are reported, and if ``None``, no filtering is applied based on existence.</span>
 
+<span class="sd">        number:</span>
+<span class="sd">            Integer specifying the maximum number of results to return.</span>
+<span class="sd">            This can also be ``float(&quot;inf&quot;)`` to retrieve all available results.</span>
+
+<span class="sd">        on_truncation:</span>
+<span class="sd">            String specifying the action to take when the number of search results is capped by ``number``.</span>
+
 <span class="sd">    Returns:</span>
-<span class="sd">        List of objects where each object corresponds to a registered directory</span>
-<span class="sd">        and contains the `path` to the directory, the `user` who registered it,</span>
-<span class="sd">        the Unix epoch `time` of the registration, and the `names` of the</span>
-<span class="sd">        metadata files to be indexed.</span>
+<span class="sd">        List of dictionaries where each dictionary corresponds to a registered directory and contains:</span>
+
+<span class="sd">        - `path`, the path to the directory.</span>
+<span class="sd">        - `user`, the name of the user who registered it.</span>
+<span class="sd">        - `time`, the Unix epoch `time` of the registration.</span>
+<span class="sd">        - `names`, a list containing the names of the metadata files to be indexed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">query</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">user</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">:</span>
@@ -311,14 +324,37 @@
             <span class="n">qstr</span> <span class="o">=</span> <span class="s2">&quot;false&quot;</span>
         <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;exists=&quot;</span> <span class="o">+</span> <span class="n">qstr</span><span class="p">)</span>
 
-    <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;/registered&quot;</span>
+    <span class="n">stub</span> <span class="o">=</span> <span class="s2">&quot;/registered&quot;</span>
+    <span class="n">use_question</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">stub</span> <span class="o">+=</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">use_question</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">ut</span><span class="o">.</span><span class="n">format_error</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
+    <span class="n">original_number</span> <span class="o">=</span> <span class="n">number</span>
+    <span class="k">if</span> <span class="n">on_truncation</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+        <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">collected</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">collected</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">number</span><span class="p">:</span>
+        <span class="n">current_url</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="n">stub</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+            <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;&amp;&quot;</span>
+            <span class="k">if</span> <span class="n">use_question</span><span class="p">:</span>
+                <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+            <span class="n">current_url</span> <span class="o">+=</span> <span class="n">sep</span> <span class="o">+</span> <span class="s2">&quot;limit=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">number</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">collected</span><span class="p">))</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ut</span><span class="o">.</span><span class="n">format_error</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">collected</span> <span class="o">+=</span> <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;next&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">payload</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">stub</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;next&quot;</span><span class="p">]</span>
+        <span class="n">use_question</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">ut</span><span class="o">.</span><span class="n">handle_truncated_pages</span><span class="p">(</span><span class="n">on_truncation</span><span class="p">,</span> <span class="n">original_number</span><span class="p">,</span> <span class="n">collected</span><span class="p">)</span></div>
 
 </pre></div>
         </article>
@@ -352,7 +388,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=9c38217c"></script>
+</div><script src="../../_static/documentation_options.js?v=b350ff45"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

@@ -12,6 +12,14 @@ sewerrat.deregister module
    :undoc-members:
    :show-inheritance:
 
+sewerrat.list\_fields module
+----------------------------
+
+.. automodule:: sewerrat.list_fields
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 sewerrat.list\_files module
 ---------------------------
 
@@ -24,6 +32,14 @@ sewerrat.list\_registered\_directories module
 ---------------------------------------------
 
 .. automodule:: sewerrat.list_registered_directories
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sewerrat.list\_tokens module
+----------------------------
+
+.. automodule:: sewerrat.list_tokens
    :members:
    :undoc-members:
    :show-inheritance:

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat.retrieve_metadata - SewerRat 0.0.post1.dev1+g00cd50e documentation</title>
+        <title>sewerrat.list_tokens - SewerRat 0.0.post1.dev1+g00cd50e documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -241,40 +241,97 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for sewerrat.retrieve_metadata</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+          <h1>Source code for sewerrat.list_tokens</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">urllib</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">_utils</span> <span class="k">as</span> <span class="n">ut</span>
 
 
-<div class="viewcode-block" id="retrieve_metadata">
-<a class="viewcode-back" href="../../api/sewerrat.html#sewerrat.retrieve_metadata.retrieve_metadata">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">retrieve_metadata</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="list_tokens">
+<a class="viewcode-back" href="../../api/sewerrat.html#sewerrat.list_tokens.list_tokens">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_tokens</span><span class="p">(</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> 
+    <span class="n">on_truncation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;message&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Retrieve a single metadata entry in a registered directory from the</span>
-<span class="sd">    SewerRat API.</span>
+<span class="sd">    List available tokens in the SewerRat database.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path:</span>
-<span class="sd">            Absolute path to a metadata file in a registered directory.</span>
-
 <span class="sd">        url:</span>
 <span class="sd">            URL to the SewerRat REST API.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        Dictionary containing:</span>
+<span class="sd">        pattern:</span>
+<span class="sd">            Pattern for filtering tokens, using the usual ``*`` and ``?`` wildcards.</span>
+<span class="sd">            Only tokens matching to the pattern will be returned. </span>
+<span class="sd">            If ``None``, no filtering is performed.</span>
 
-<span class="sd">        - ``path``, the path to the metadata file.</span>
-<span class="sd">        - ``user``, the identity of the owning user.</span>
-<span class="sd">        - ``time``, the Unix time at which the file was modified.</span>
-<span class="sd">        - ``metadata``, the loaded metadata, typically another dictionary</span>
-<span class="sd">          representing a JSON object.</span>
+<span class="sd">        field:</span>
+<span class="sd">            Metadata property field for filtering tokens.</span>
+<span class="sd">            Only tokens found in the specified field will be returned.</span>
+<span class="sd">            If ``None``, no filtering is performed.</span>
+
+<span class="sd">        count:</span>
+<span class="sd">            Whether to count the number of metadata files associated with each token.</span>
+
+<span class="sd">        number:</span>
+<span class="sd">            Integer specifying the maximum number of results to return.</span>
+<span class="sd">            This can also be ``float(&quot;inf&quot;)`` to retrieve all available results.</span>
+
+<span class="sd">        on_truncation:</span>
+<span class="sd">            String specifying the action to take when the number of search results is capped by ``number``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of dictionaries where each dictionary corresponds to a token and contains:</span>
+
+<span class="sd">        - ``token``, string containing the token.</span>
+<span class="sd">        - ``count``, integer specifying the number of files associated with the token.</span>
+<span class="sd">          This is only present if ``count=True`` in the function call.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/retrieve/metadata?path=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">ut</span><span class="o">.</span><span class="n">format_error</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
+    <span class="n">query</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">pattern</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;pattern=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">field</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;field=&quot;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">field</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">count</span><span class="p">:</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;count=true&quot;</span><span class="p">)</span>
+
+    <span class="n">stub</span> <span class="o">=</span> <span class="s2">&quot;/tokens&quot;</span>
+    <span class="n">use_question</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">stub</span> <span class="o">+=</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="s2">&quot;&amp;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">use_question</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">original_number</span> <span class="o">=</span> <span class="n">number</span>
+    <span class="k">if</span> <span class="n">on_truncation</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
+        <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">collected</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">collected</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">number</span><span class="p">:</span>
+        <span class="n">current_url</span> <span class="o">=</span> <span class="n">url</span> <span class="o">+</span> <span class="n">stub</span>
+        <span class="k">if</span> <span class="n">number</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+            <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;&amp;&quot;</span>
+            <span class="k">if</span> <span class="n">use_question</span><span class="p">:</span>
+                <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+            <span class="n">current_url</span> <span class="o">+=</span> <span class="n">sep</span> <span class="o">+</span> <span class="s2">&quot;limit=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">number</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">collected</span><span class="p">))</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ut</span><span class="o">.</span><span class="n">format_error</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">collected</span> <span class="o">+=</span> <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;next&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">payload</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">stub</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;next&quot;</span><span class="p">]</span>
+        <span class="n">use_question</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">ut</span><span class="o">.</span><span class="n">handle_truncated_pages</span><span class="p">(</span><span class="n">on_truncation</span><span class="p">,</span> <span class="n">original_number</span><span class="p">,</span> <span class="n">collected</span><span class="p">)</span></div>
 
 </pre></div>
         </article>

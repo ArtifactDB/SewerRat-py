@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="sewerrat" href="modules.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>sewerrat package - SewerRat 0.0.post1.dev1+g7cc428f documentation</title>
+        <title>sewerrat package - SewerRat 0.0.post1.dev1+g00cd50e documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g7cc428f documentation</div></a>
+      <a href="../index.html"><div class="brand">SewerRat 0.0.post1.dev1+g00cd50e documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g7cc428f documentation</span>
+  <span class="sidebar-brand-text">SewerRat 0.0.post1.dev1+g00cd50e documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -281,6 +281,40 @@ This can be useful for asynchronous processing of directories with many files.</
 </dd></dl>
 
 </section>
+<section id="module-sewerrat.list_fields">
+<span id="sewerrat-list-fields-module"></span><h2>sewerrat.list_fields module<a class="headerlink" href="#module-sewerrat.list_fields" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sewerrat.list_fields.list_fields">
+<span class="sig-prename descclassname"><span class="pre">sewerrat.list_fields.</span></span><span class="sig-name descname"><span class="pre">list_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_truncation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/list_fields.html#list_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.list_fields.list_fields" title="Link to this definition">¶</a></dt>
+<dd><p>List available fields in the SewerRat database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API.</p></li>
+<li><p><strong>pattern</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – Pattern for filtering fields, using the usual <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcards.
+Only fields matching to the pattern will be returned.
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no filtering is performed.</p></li>
+<li><p><strong>count</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to count the number of metadata files associated with each field.</p></li>
+<li><p><strong>number</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Integer specifying the maximum number of results to return.
+This can also be <code class="docutils literal notranslate"><span class="pre">float(&quot;inf&quot;)</span></code> to retrieve all available results.</p></li>
+<li><p><strong>on_truncation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'message'</span></code>, <code class="docutils literal notranslate"><span class="pre">'warning'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>]</span>) – String specifying the action to take when the number of search results is capped by <code class="docutils literal notranslate"><span class="pre">number</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">field</span></code>, string containing the field.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span></code>, integer specifying the number of files associated with the field.
+This is only present if <code class="docutils literal notranslate"><span class="pre">count=True</span></code> in the function call.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dictionaries where each dictionary corresponds to a field and contains</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-sewerrat.list_files">
 <span id="sewerrat-list-files-module"></span><h2>sewerrat.list_files module<a class="headerlink" href="#module-sewerrat.list_files" title="Link to this heading">¶</a></h2>
 <dl class="py function">
@@ -313,15 +347,15 @@ on the same filesystem as the caller.</p></li>
 <span id="sewerrat-list-registered-directories-module"></span><h2>sewerrat.list_registered_directories module<a class="headerlink" href="#module-sewerrat.list_registered_directories" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sewerrat.list_registered_directories.list_registered_directories">
-<span class="sig-prename descclassname"><span class="pre">sewerrat.list_registered_directories.</span></span><span class="sig-name descname"><span class="pre">list_registered_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exists</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/list_registered_directories.html#list_registered_directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.list_registered_directories.list_registered_directories" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sewerrat.list_registered_directories.</span></span><span class="sig-name descname"><span class="pre">list_registered_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exists</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_truncation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/list_registered_directories.html#list_registered_directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.list_registered_directories.list_registered_directories" title="Link to this definition">¶</a></dt>
 <dd><p>List all registered directories in the SewerRat instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API.</p></li>
-<li><p><strong>user</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span>) – Name of a user. If not None, this is used to filter the returned
-directories based on the user who registered them. Alternatively
-True, to automatically use the name of the current user.</p></li>
+<li><p><strong>user</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span>) – Name of a user.
+If not <code class="docutils literal notranslate"><span class="pre">None</span></code>, this is used to filter the returned directories based on the user who registered them.
+Alternatively, this can be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to automatically use the name of the current user.</p></li>
 <li><p><strong>contains</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – String containing an absolute path. If not None, results are
 filtered to directories that contain this path.</p></li>
 <li><p><strong>within</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – String containing an absolute path.
@@ -331,16 +365,59 @@ If not <code class="docutils literal notranslate"><span class="pre">None</span><
 This is soft-deprecated and users should use <code class="docutils literal notranslate"><span class="pre">within=</span></code> instead.</p></li>
 <li><p><strong>exists</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]</span>) – Whether to only report directories that exist on the filesystem.
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, only non-existent directories are reported, and if <code class="docutils literal notranslate"><span class="pre">None</span></code>, no filtering is applied based on existence.</p></li>
+<li><p><strong>number</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Integer specifying the maximum number of results to return.
+This can also be <code class="docutils literal notranslate"><span class="pre">float(&quot;inf&quot;)</span></code> to retrieve all available results.</p></li>
+<li><p><strong>on_truncation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'message'</span></code>, <code class="docutils literal notranslate"><span class="pre">'warning'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>]</span>) – String specifying the action to take when the number of search results is capped by <code class="docutils literal notranslate"><span class="pre">number</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>]</span></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><cite>path</cite>, the path to the directory.</p></li>
+<li><p><cite>user</cite>, the name of the user who registered it.</p></li>
+<li><p><cite>time</cite>, the Unix epoch <cite>time</cite> of the registration.</p></li>
+<li><p><cite>names</cite>, a list containing the names of the metadata files to be indexed.</p></li>
+</ul>
+</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of objects where each object corresponds to a registered directory
-and contains the <cite>path</cite> to the directory, the <cite>user</cite> who registered it,
-the Unix epoch <cite>time</cite> of the registration, and the <cite>names</cite> of the
-metadata files to be indexed.</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dictionaries where each dictionary corresponds to a registered directory and contains</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sewerrat.list_tokens">
+<span id="sewerrat-list-tokens-module"></span><h2>sewerrat.list_tokens module<a class="headerlink" href="#module-sewerrat.list_tokens" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sewerrat.list_tokens.list_tokens">
+<span class="sig-prename descclassname"><span class="pre">sewerrat.list_tokens.</span></span><span class="sig-name descname"><span class="pre">list_tokens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_truncation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/list_tokens.html#list_tokens"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.list_tokens.list_tokens" title="Link to this definition">¶</a></dt>
+<dd><p>List available tokens in the SewerRat database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – URL to the SewerRat REST API.</p></li>
+<li><p><strong>pattern</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – Pattern for filtering tokens, using the usual <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcards.
+Only tokens matching to the pattern will be returned.
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no filtering is performed.</p></li>
+<li><p><strong>field</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – Metadata property field for filtering tokens.
+Only tokens found in the specified field will be returned.
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no filtering is performed.</p></li>
+<li><p><strong>count</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to count the number of metadata files associated with each token.</p></li>
+<li><p><strong>number</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Integer specifying the maximum number of results to return.
+This can also be <code class="docutils literal notranslate"><span class="pre">float(&quot;inf&quot;)</span></code> to retrieve all available results.</p></li>
+<li><p><strong>on_truncation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'message'</span></code>, <code class="docutils literal notranslate"><span class="pre">'warning'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>]</span>) – String specifying the action to take when the number of search results is capped by <code class="docutils literal notranslate"><span class="pre">number</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">token</span></code>, string containing the token.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span></code>, integer specifying the number of files associated with the token.
+This is only present if <code class="docutils literal notranslate"><span class="pre">count=True</span></code> in the function call.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dictionaries where each dictionary corresponds to a token and contains</p>
 </dd>
 </dl>
 </dd></dl>
@@ -350,7 +427,7 @@ metadata files to be indexed.</p>
 <span id="sewerrat-query-module"></span><h2>sewerrat.query module<a class="headerlink" href="#module-sewerrat.query" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sewerrat.query.query">
-<span class="sig-prename descclassname"><span class="pre">sewerrat.query.</span></span><span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_truncation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/query.html#query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.query.query" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sewerrat.query.</span></span><span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_truncation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/query.html#query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.query.query" title="Link to this definition">¶</a></dt>
 <dd><p>Query the metadata in the SewerRat backend based on free text, the owner,
 creation time, etc. This function does not require filesystem access.</p>
 <dl class="field-list simple">
@@ -370,25 +447,25 @@ to remove old files.</p></li>
 <li><p><strong>before</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</span>) – Integer containing a Unix time in seconds, where only files older
 than <code class="docutils literal notranslate"><span class="pre">before</span></code> will be retained. If None, no filtering is applied
 to remove new files.</p></li>
+<li><p><strong>metadata</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – Whether to return the metadata of each file.
+This can be set to <code class="docutils literal notranslate"><span class="pre">False</span></code> for better performance if only the path is of interest.</p></li>
 <li><p><strong>number</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – Integer specifying the maximum number of results to return.
 This can also be <code class="docutils literal notranslate"><span class="pre">float(&quot;inf&quot;)</span></code> to retrieve all available results.</p></li>
-<li><p><strong>on_truncation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'message'</span></code>, <code class="docutils literal notranslate"><span class="pre">'warning'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>]</span>) – String specifying the action to take when the number of search
-results is capped by <code class="docutils literal notranslate"><span class="pre">number</span></code>.</p></li>
+<li><p><strong>on_truncation</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Literal" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'message'</span></code>, <code class="docutils literal notranslate"><span class="pre">'warning'</span></code>, <code class="docutils literal notranslate"><span class="pre">'none'</span></code>]</span>) – String specifying the action to take when the number of search results is capped by <code class="docutils literal notranslate"><span class="pre">number</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><p>List of dictionaries where each inner dictionary corresponds to a
-metadata file and contains:</p>
-<ul class="simple">
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>, a string containing the path to the file.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>, the identity of the file owner.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>, the Unix time of most recent file modification.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code>, a list representing the JSON contents of the file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code>, a list representing the JSON contents of the file.
+Only reported if <code class="docutils literal notranslate"><span class="pre">metadata=True</span></code> in the function call.</p></li>
 </ul>
 </p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dictionaries where each dictionary corresponds to a metadata file and contains</p>
 </dd>
 </dl>
 </dd></dl>
@@ -526,7 +603,7 @@ representing a JSON object.</p></li>
 <span id="sewerrat-start-sewerrat-module"></span><h2>sewerrat.start_sewerrat module<a class="headerlink" href="#module-sewerrat.start_sewerrat" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sewerrat.start_sewerrat.start_sewerrat">
-<span class="sig-prename descclassname"><span class="pre">sewerrat.start_sewerrat.</span></span><span class="sig-name descname"><span class="pre">start_sewerrat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1.1.3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/start_sewerrat.html#start_sewerrat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.start_sewerrat.start_sewerrat" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sewerrat.start_sewerrat.</span></span><span class="sig-name descname"><span class="pre">start_sewerrat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1.2.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sewerrat/start_sewerrat.html#start_sewerrat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sewerrat.start_sewerrat.start_sewerrat" title="Link to this definition">¶</a></dt>
 <dd><p>Start a test SewerRat service.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -616,12 +693,20 @@ no test service was running, this function is a no-op.</p>
 <li><a class="reference internal" href="#sewerrat.deregister.deregister"><code class="docutils literal notranslate"><span class="pre">deregister()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-sewerrat.list_fields">sewerrat.list_fields module</a><ul>
+<li><a class="reference internal" href="#sewerrat.list_fields.list_fields"><code class="docutils literal notranslate"><span class="pre">list_fields()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-sewerrat.list_files">sewerrat.list_files module</a><ul>
 <li><a class="reference internal" href="#sewerrat.list_files.list_files"><code class="docutils literal notranslate"><span class="pre">list_files()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-sewerrat.list_registered_directories">sewerrat.list_registered_directories module</a><ul>
 <li><a class="reference internal" href="#sewerrat.list_registered_directories.list_registered_directories"><code class="docutils literal notranslate"><span class="pre">list_registered_directories()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-sewerrat.list_tokens">sewerrat.list_tokens module</a><ul>
+<li><a class="reference internal" href="#sewerrat.list_tokens.list_tokens"><code class="docutils literal notranslate"><span class="pre">list_tokens()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-sewerrat.query">sewerrat.query module</a><ul>
@@ -661,7 +746,7 @@ no test service was running, this function is a no-op.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=9c38217c"></script>
+</div><script src="../_static/documentation_options.js?v=b350ff45"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

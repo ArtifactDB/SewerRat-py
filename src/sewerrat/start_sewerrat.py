@@ -9,7 +9,7 @@ test_api_process = None
 test_api_port = None
 
 
-def start_sewerrat(db: Optional[str] = None, port: Optional[int] = None, wait: float = 1, version: str = "1.2.0", overwrite: bool = False) -> Tuple[bool, int]:
+def start_sewerrat(db: Optional[str] = None, port: Optional[int] = None, wait: float = 1, version: str = "1.3.1", whitelist: Optional[list] = None, overwrite: bool = False) -> Tuple[bool, int]:
     """
     Start a test SewerRat service.
 
@@ -26,6 +26,10 @@ def start_sewerrat(db: Optional[str] = None, port: Optional[int] = None, wait: f
         version:
             Version of the service to run.
 
+        whitelist:
+            List of users who can create symbolic links that will be followed by the SewerRat service.
+            If None, this defaults to the current user and the owner of the temporary directory.
+
         overwrite:
             Whether to overwrite the existing Gobbler binary.
 
@@ -41,7 +45,7 @@ def start_sewerrat(db: Optional[str] = None, port: Optional[int] = None, wait: f
         return False, "http://0.0.0.0:" + str(test_api_port)
 
     exe = _acquire_sewerrat_binary(version, overwrite)
-    _initialize_sewerrat_process(exe, db, port)
+    _initialize_sewerrat_process(exe, db, port, whitelist)
 
     time.sleep(1) # give it some time to spin up.
     return True, "http://0.0.0.0:" + str(test_api_port)
@@ -90,24 +94,38 @@ def _acquire_sewerrat_binary(version: str, overwrite: bool):
     return exe
    
 
-def _initialize_sewerrat_process(exe: str, db: Optional[str], port: Optional[int]):
-    if port is None:
-        import socket
-        with socket.socket(socket.AF_INET) as s:
-            s.bind(('0.0.0.0', 0))
-            port = s.getsockname()[1]
+def _initialize_sewerrat_process(exe: str, db: Optional[str], port: Optional[int], whitelist: Optional[list]):
+    if whitelist is None:
+        import getpass
+        whitelist = set([getpass.getuser()])
+        import tempfile
+        import pathlib
+        tmp = pathlib.Path(tempfile.gettempdir())
+        while True:
+            whitelist.add(tmp.owner())
+            parent = tmp.parent
+            if parent == tmp:
+                break
+            tmp = parent
+        whitelist = list(whitelist)
 
     if db is None:
         import tempfile
         host = tempfile.mkdtemp()
         db = os.path.join(host, "index.sqlite3")
 
+    if port is None:
+        import socket
+        with socket.socket(socket.AF_INET) as s:
+            s.bind(('0.0.0.0', 0))
+            port = s.getsockname()[1]
+
     global test_api_port
     global test_api_process
     test_api_port = port
 
     import subprocess
-    test_api_process = subprocess.Popen([ exe, "-db", db, "-port", str(port) ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    test_api_process = subprocess.Popen([ exe, "-db", db, "-port", str(port), "-whitelist", ",".join(whitelist) ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     import atexit
     atexit.register(stop_sewerrat)
